@@ -4,6 +4,8 @@
 
 **Last updated:** September 2026
 
+**Status: ** DRAFT - work in progress
+
 **Duration:** 60 minutes
 
 Need support? Contact **Lars Besselmann, Sebastian Porro**
@@ -22,9 +24,9 @@ Upon completion of this lab, you will have gained skills to download and use the
 3.  **using the Liberty Operator** – useful for deploying to OpenShift
 
 
-**IBM Cloud Transformation Advisor** (Transformation Advisor) is an application modernization tool that is entitled through IBM Cloud Pak for Applications and WebSphere Hybrid Edition. Transformation Advisor helps you quickly evaluate on-premises Java EE applications for deployment to the cloud. 
+**IBM Application Modernization Accelerator** (Application Modernization Accelerator) is an application modernization tool that helps you quickly evaluate on-premises Java EE applications for deployment to the cloud. 
 
-The Transformation Advisor tool provides the following value:
+The Application Modernization Accelerator tool provides the following value:
 
   - Identifies the Java EE programming models in the app
 
@@ -74,75 +76,15 @@ Otherwise, you will need to reserve an environment for the lab. You can obtain o
 
 The lab environment contains six (6) Linux VMs.
 
-![A screenshot of a computer error Description automatically generated](./images/media/image2.png)
 
-1.  Access the lab environment from your web browser.
-
-    A `Published Service` is configured to provide access to the **`Workstation`** VM through the noVNC interface for the lab environment.
- 
-    a. When the demo environment is provisioned, click on the **`environment tile`** to open its details view.
- 
-    b. Click on the **`Published Service`** link which will display a **`Directory listing`**
- 
-    c. Click on the **`vnc.html`** link to open the lab environment through the **`noVNC`** interface.
- 
-    ![A list of directory listing Description automatically generated](./images/media/image3.png)
- 
-    d. Click the **`Connect`** button
- 
-    ![A screenshot of a computer Description automatically generated](./images/media/image4.png)
- 
-    e. Enter the password as: **`passw0rd`**. Then click the **`Send Credentials`** button to access the lab environment.
- 
-    Note: That is a numeric zero in passw0rd
- 
-    ![A screenshot of a login box Description automatically generated](./images/media/image5.png)
-
-2.  If prompted to Login to the "workstation" VM, use the credentials below:
-
-> The login credentials for the **workstation”** VM is:
-
-  - User ID: **techzone**
-
-  - Password: **IBMDem0s\!**
-
-> Note: That is a numeric zero in the password
-> 
-> ![student vm screen](./images/media/image6.png)
-
-## Tips for working in the lab environment
-
-1. You can resize the viewable area using the **noVNC Settings** options to resize the virtual desktop to fit your screen.
-
-    a. From the environment VM, click on the **`twisty`** on the noNC control pane to open the menu.
-
-    ![fit to window](./images/media/image7.png)
-
-    b. To increase the visible area, click on **`Settings > Scaling Mode`** and set the value to **`Remote Resizing`**
-
-    ![fit to window](./images/media/image8.png)
-
-2. You can copy / paste text from the lab guide into the lab environment using the clipboard in the noVNC viewer.
-
-    a. Copy the text from the lab guide that you want to paste into the lab environment
-
-    b. Click the **`Clipboard`** icon and **`paste`** the text into the noVNC clipboard
-
-    ![fit to window](./images/media/image9.png)
-
-    c. Paste the text into the VM, such as to a terminal window, browser window, etc.
-
-    d. Click on the **`clipboard`** icon again to close the clipboard
-
-    An alternative to using the noVNC Copy / Paste option, you may consider opening the lab guide in a web browser inside of the VM. Using this method, you can easily copy / paste text from the lab guide without having to use the noVNC clipboard.
 
 ## Lab Tasks
 
-In this lab, you will use the Transformation Advisor `migration bundle` to build a container image and deploy an application to a local container for testing.
+In this lab, you will use the Application Modernization Accelerator `migration plan` to build a container image and deploy an application to a local container for testing.
 
 To simplify the lab and to allow you to focus on the migration bundle, certain software and artifacts have already been put in place for you. These are as follows:
 
-  - **Transformation Advisor** has been installed and collected data has been loaded
+  - **Application Modernization Accelerator** has been installed and collected data has been loaded
 
   - **docker** (for creating and running images) has been installed
 
