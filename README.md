@@ -203,11 +203,11 @@ In this section, create a new workspace named **'proof_of_concept'**.
 
 A `workspace` is a designated area that will house the migration recommendations provided by Transformation Advisor based on the Data Collector scan results of your application server environment.
 
-1. Create a new workspace named **proof_of_concept**
+1. Create a new workspace named **Evaluation**
 
     a.  From the Transformation Advisor Home page, click the **`Create New`** button
 
-    b.  Type **`proof_of_concept`** as the Workspace name. Then click the **`Create`** button
+    b.  Type **`Evaluation`** as the Workspace name. Then click the **`Create`** button
 
      ![A screenshot of a computer Description automatically generated](./images/media/image15.png)
 
