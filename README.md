@@ -149,6 +149,14 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
         find ./appmod-pot-labfiles -name "*.sh" -exec chmod +x {} \; 
 
+    d. **Create DB2 Driver directory**
+
+        mkdir ~/Student/db2_drivers
+        cp ~/Student/appmod-pot-labfiles/labs/RuntimeModernization/license-demo/pbw_migrationBundle/src/main/liberty/lib/db2jcc*.jar ~/Student/db2_drivers
+        ls -lrt ~/Student/db2_drivers
+
+
+
 2. Start the PlantsByWebSphere application database
 
     The PlantsByWebShere application database runs in a local podman container. Use the command below to start the database. 
@@ -378,7 +386,7 @@ In this section, you will review the migration bundle to see what files need to 
 
     a.  From the **Terminal window**, list the placeholder files in the migration bundle.
 
-        unzip -l /home/itzuser/Downloads/plantsbywebsphereee6.ear\_migrationBundle.zip | grep placeholder
+        unzip -l ~/Downloads/plantsbywebsphereee6.ear_migrationPlan.zip | grep placeholder
  
     ![](./images/media/placeholder-files.png)
  
@@ -403,50 +411,66 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
 
 1. Extract the migration bundle that you downloaded
 
-        mkdir /home/itzuser/Student/labs/appmod/migration-bundle
+        mkdir ~/Student/migrationPlan
+        cd ~/Student/migrationPlan
+        cp ~/Downloads/plantsbywebsphereee6.ear_migrationPlan.zip .
+        unzip plantsbywebsphereee6.ear_migrationPlan.zip
 
-        cd /home/itzuser/Student/labs/appmod/migration-bundle
-
-        cp /home/itzuser/Downloads/plantsbywebsphereee6.ear_migrationBundle.zip .
-
-        unzip plantsbywebsphereee6.ear_migrationBundle.zip
 
 2. List the directory of the extracted migration bundle
 
         ls -l        
 
-    The migration bundle contains the files to build and deploy the PlantsByWebSphere application to Liberty, in containers, and on OpenShift.     
+    The migration plan contains the files to build and deploy the PlantsByWebSphere application to Liberty, in containers, and on OpenShift.     
 
     ![](./images/media/migbundle-dirs.png)
  
 
 3.	Copy the PlantsByWebSPhere application binary file into the `apps` location in Liberty
 
-        cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/plantsbywebsphereee6.ear /home/itzuser/wlp/usr/servers/pbwserver/apps
+        cp ~/Student/appmod-pot-labfiles/labs/RuntimeModernization/plantsbywebsphereee6.ear ~/Student/wlp/usr/servers/pbwserver/apps
 
 4. Create the `global shared` directory in Liberty. 
 
     This is where you will copy the DB2 libraries for Liberty
 
-        mkdir /home/itzuser/wlp/usr/shared/config/lib/global
+        mkdir -p ~/Student/wlp/usr/shared/config/lib/global
  
 5.	Copy the DB2 driver files into the `global shared` location in Liberty.
 
     This will make it available to any application running in Liberty.
 
-        cp /home/itzuser/Student/LabFiles/db2_drivers/* /home/itzuser/wlp/usr/shared/config/lib/global
+        cp ~/Student/db2_drivers/* ~/Student/wlp/usr/shared/config/lib/global
+
+        ls -lrt ~/Student/wlp/usr/shared/config/lib/global
+
 
 
 6.	Copy the `server.xml` file from the migration bundle into the Liberty server to replace its existing configuration. Choose to overwrite the existing file if prompted.
 
-        cp /home/itzuser/Student/labs/appmod/migration-bundle/src/main/liberty/config/server.xml /home/itzuser/wlp/usr/servers/pbwserver 
+        cp ~/Student/migrationPlan/src/main/liberty/config/server.xml ~/Student/wlp/usr/servers/pbwserver 
 
+7.	Configure Liberty to use Java 8 instead of Java 21.
+
+        echo "" >> ~/Student/wlp/usr/servers/pbwserver/server.env
+
+        echo "JAVA_HOME=/usr/lib/jvm/ibm-semeru-open-8-jdk" >> ~/Student/wlp/usr/servers/pbwserver/server.env
+ 
     ___
 
     Now that the PlantsByWebSphere binary and its configuration are added to the Liberty server, the application is ready to be run form the web browser.     
     ___
 
-7.  Run the PlantsByWebSphere application from the browser.
+8. Install the missing Liberty features reequired to run the application
+
+        ~/Student/wlp/bin/featureUtility installServerFeatures pbwserver
+
+9. Start the Liberty server
+
+        ~/Student/wlp/bin/server start pbwserver
+
+
+10.  Run the PlantsByWebSphere application from the browser.
 
         http://localhost:9080/PlantsByWebSphere
  
@@ -454,7 +478,7 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
  
     ![A website page of a garden Description automatically generated](./images/media/image36.png)
 
-8.  Attempt to click on any of the tabs: “**Flowers**”, **Fruits & Vegetables**”, or “**Trees**”.
+11.  Attempt to click on any of the tabs: “**Flowers**”, **Fruits & Vegetables**”, or “**Trees**”.
 
     ___
 
