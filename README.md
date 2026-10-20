@@ -86,13 +86,49 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
   - **Application Modernization Accelerator** has been installed and collected data has been loaded
 
-  - **docker** (for creating and running images) has been installed
+  - **podman** (for creating and running images) has been installed
 
   - **oc** (OpenShift command Line tool for running OCP commands) has been installed
 
   - The **PlantsByWebSphere Sample Application**, built as an Enterprise Archive file (EAR) is available from the lab resource provided.
 
-  
+# Part 0: Prepare environment
+
+**Disable Docker**
+
+    unalias docker
+    sudo mv /bin/docker /bin/docker.sav
+
+
+**Install AMA**
+
+    /tmp/post_deploy_repo/scripts/AMA_510_install.sh
+    sh ~/software/AMA/AMA_apply_Full_Key.sh 
+
+**Move/remove files to backup**
+
+    mkdir ~/backup
+    mv ~/Student ~/backup
+    rm -rf ~/binary-scanner
+    rm -rf ~/IBM
+    rm -rf ~/transformation-advisor-local-3.8.1
+
+**Create podman container with the PlantsByWebSphere database pbwdb**
+
+    podman pull ibmcom/db2
+    podman run --privileged=true -d \
+    --name db2-pbwdb \
+    -e LICENSE=accept \
+    -e DB2INST1_PASSWORD=password \
+    -e DBNAME=pbwdb \
+    -p 50000:50000 \
+    ibmcom/db2
+
+**Create Student directory**
+
+    mkdir -p /home/itzuser/Student
+
+
 # Part 1: Application Assesment    
 
 ## 1.1 Pull down the Lab artifacts and setup lab environment
@@ -105,7 +141,7 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
     b.  Run the commands to clone the git repository to the local system
 
-        cd /home/itzuser
+        cd /home/itzuser/Student
 
         git clone https://github.com/IBMTechSales/appmod-pot-labfiles.git
 
@@ -115,44 +151,46 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
 2. Start the PlantsByWebSphere application database
 
-    The PlantsByWebShere application database runs in a local docker container. Use the command below to start the database. 
+    The PlantsByWebShere application database runs in a local podman container. Use the command below to start the database. 
 
-        docker start db2_demo_data
+        podman start db2-pbwdb
+        netstat -an | grep 50000
 
 
-## 1.2 Launch Transformation Advisor (local)
 
-Transformation Advisor provides a **`migration plan`** for each application being assessed for modernization. The migration plan includes a **`migration bundle`** of generated artifacts that accelerate the deployment of applications to Liberty in containers and Kubernetes / OpenShift.
+## 1.2 Launch Application Modernization Accelerator (local)
+
+Application Modernization Accelerator provides a **`migration plan`** for each application being assessed for modernization. The migration plan includes a **`migration bundle`** of generated artifacts that accelerate the deployment of applications to Liberty in containers and Kubernetes / OpenShift.
 
 The migration bundle includes diverse artifacts, depending on the needs of the application to accelerate the build and deployment of an application Container image into an OpenShift container platform.
 
-The Transformation Advisor is installed locally on the **Workstation** VM. 
+The Application Modernization Accelerator is installed locally on the **Workstation** VM. 
 
-1. Launch the Transformation Advisor tool using the steps below.
+1. Launch the Application Modernization Accelerator tool using the steps below.
 
     a.  From **Workstation** VM Desktop Tool Bar, click the `Terminal` icon to open a Terminal window.
 
     ![](./images/media/image11.png)
 
-    b.  Launch the **Transformation Advisor** with commands:
+    b.  Launch the **Application Modernization Accelerator** with commands:
 
-        cd /home/itzuser/transformation-advisor-local-3.8.1
+        cd ~/usr/IBM/application-modernization-accelerator-local-*
 
-        ./launchTransformationAdvisor.sh
+        ./launch.sh
+        
+     Wait for Application Modernization Accelerator to initialize and display the **action menu** list.
 
-     Wait for Transformation Advisor to initialize and display the **action menu** list.
-
-    c.  Type **`5`** and press **`Enter`** to “Start” the **Transformation Advisor**.
+    c.  If not already started, type **`5`** and press **`Enter`** to “Start” the **Transformation Advisor**.
 
      ![](./images/media/image12.png)
  
     d. The **Transformation Advisor** application is started, **`right-click`** the application URL link and select **`Open Link`** to launch it in a web browser window.
  
-     The URL is displayed in the output from the TA command: [**http://server0.gym.lan:3000**](http://server0.gym.lan:3000)
+     The URL is displayed in the output from the AMA command: [**https://localhost:3000**]
  
      ![](./images/media/image13.png)
  
-     The **Transformation Advisor** Home page is displayed in the Web Browser.
+     The **Application Modernization Accelerator** Home page is displayed in the Web Browser.
  
      ![](./images/media/image14.png)
 
@@ -279,19 +317,27 @@ Then, you will review the migration bundle to see what files you need to add, an
 
 ### 2.1   Create a local Liberty Server
 
-1.  From a **`Terminal`** window, create a new local WebSphere Liberty server named ‘**pbwserver**”
+1.  From a **`Terminal`** window, download and install the Liberty archive.
 
-        /home/itzuser/wlp/bin/server create pbwserver
+        wget https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/26.0.0.6/wlp-javaee7-26.0.0.6.zip -P ~/Student
+        cd ~/Student
+        unzip wlp-javaee7-26.0.0.6.zip
+
+
+    
+
+2.  From the **`Terminal`** window, create a new local WebSphere Liberty server named ‘**pbwserver**”
+
+        ~/Student/wlp/bin/server create pbwserver
 
     **output:**
 
     ```
     Server pbwserver created.
     ```
+3.  From the **Terminal** window, start the local WebSphere Liberty server.
 
-2.  From the **Terminal** window, start the local WebSphere Liberty server.
-
-        /home/itzuser/wlp/bin/server start pbwserver
+        ~/Student/wlp/bin/server start pbwserver
 
     **Output:**
 
@@ -301,12 +347,24 @@ Then, you will review the migration bundle to see what files you need to add, an
     Server pbwserver started with process ID #####
     ```
 
-3.  Confirm the local WebSphere Liberty server is running. Open the `Firefox` web browser, open a new browser tab. Then go to: **http://localhost:9080**
+4.  Confirm the local WebSphere Liberty server is running. Open the `Firefox` web browser, open a new browser tab. Then go to: **http://localhost:9080**
 
     ![A screenshot of a computer Description automatically generated](./images/media/image25.png)
 
 
-    
+5.  From the **Terminal** window, stop the local WebSphere Liberty server.
+
+        ~/Student/wlp/bin/server stop pbwserver
+
+    **Output:**
+
+    ```
+    Stopping server pbwserver.
+    Server pbwserver stopped.
+
+    ```
+
+
 
 ### 2.1.3 Review the placeholder files in the migration bundle
 
