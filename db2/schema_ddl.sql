@@ -4,10 +4,10 @@
 -- Target: IBM DB2 Community Edition (container image)
 -- ============================================================
 
--- Create the application schema matching Derby's default schema name
--- The application uses OpenJPA which hard-codes APP.TABLENAME references
+-- Create the application schema matching Derby's default schema name.
+-- The application uses OpenJPA which hard-codes APP.TABLENAME references.
+-- NOTE: SET CURRENT SCHEMA is issued by createdb.sh before running this file.
 CREATE SCHEMA APP;
-SET CURRENT SCHEMA = APP;
 
 -- --------------------------------------------------------
 -- Table: BACKORDER
