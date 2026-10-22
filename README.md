@@ -300,15 +300,15 @@ A `workspace` is a designated area that will house the migration recommendations
 
     a. Expand the section it to see the details
 
-    b. In this case, DB2 drivers called **db2jcc.jar** and **db2cc_licence.jar** are required for deployment
+    b. In this case, DB2 drivers called **db2jcc.jar** and **db2cc_licence.jar** are required for deployment (you might see additional libraries but those are not required in that case.)
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image23.png)
+    ![PBW depdencencies](./images/media/image23.png)
 
-3.  Download the migration bundle by clicking the **`Download`** button in the bottom right. 
-
-    A zip file named “**plantsbywebsphereee6.ear_migrationBundle.zip**” will download to your **Download** folder.
+3.  Download the migration plan by clicking the **`Download plan`** button in the bottom right. 
 
     ![A screenshot of a computer Description automatically generated](./images/media/image24.png)
+    A zip file named “**plantsbywebsphereee6.ear_migrationPlan.zip**” will download to your **Download** folder.
+
 
 
 We will go through a step-by-step process of using the Application Modernization Accelerator migration bundle to deploy **plantsbywebsphereee6.ear** as follows:
@@ -427,12 +427,12 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
 
     The migration plan contains the files to build and deploy the PlantsByWebSphere application to Liberty, in containers, and on OpenShift.     
 
-    ![](./images/media/migbundle-dirs.png)
+    ![](./images/media/migrationplan_content.png)
  
 
 3.	Copy the PlantsByWebSPhere application binary file into the `apps` location in Liberty
 
-        cp ~/Student/appmod-pot-labfiles/labs/RuntimeModernization/plantsbywebsphereee6.ear ~/Student/wlp/usr/servers/pbwserver/apps
+        cp ~/Student/plantsbywebsphereee6.ear ~/Student/wlp/usr/servers/pbwserver/apps
 
 4. Create the `global shared` directory in Liberty. 
 
