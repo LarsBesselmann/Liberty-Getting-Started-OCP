@@ -131,7 +131,7 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
     ## Needs sudo
 
-    sudo podman build -t plantsdb-db2 ./lab_sources/db2
+    sudo podman build -t plantsdb-db2 ./plantsdb-db2
 
     sudo podman run --privileged=true -d \
     --name plantsdb-db2 \
