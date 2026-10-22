@@ -13,9 +13,9 @@ Need support? Contact **Lars Besselmann, Sebastian Porro**
 ## Overview
 This lab provides fundamental hands-on experience with modernizing existing Java applications to WebSphere Liberty, deployed into a container platform, such as Red Hat OpenShift. 
 
-The focus of this lab is on the practical aspects of application deployment and configurations and not the analysis of the Transformation Advisor results. *Other labs cover Transformation Advisor in detail.*
+The focus of this lab is on the practical aspects of application deployment and configurations and not the analysis of the Application Modernization Accelerator results. *Other labs cover Application Modernization Accelerator in detail.*
 
-Upon completion of this lab, you will have gained skills to download and use the `Transformation Advisor migration bundle` to deploy and configure your application in the following scenarios: 
+Upon completion of this lab, you will have gained skills to download and use the `Application Modernization Accelerator migration bundle` to deploy and configure your application in the following scenarios: 
 
 1.  **to a locally running WebSphere Liberty** - useful for deploying to Liberty in a VM
 
@@ -167,32 +167,43 @@ The Application Modernization Accelerator is installed locally on the **Workstat
         
      Wait for Application Modernization Accelerator to initialize and display the **action menu** list.
 
-    c.  If not already started, type **`5`** and press **`Enter`** to “Start” the **Transformation Advisor**.
+    c.  If not already started, type **`5`** and press **`Enter`** to “Start” the **Application Modernization Accelerator**.
 
      ![](./images/media/image12.png)
  
-    d. The **Transformation Advisor** application is started, **`right-click`** the application URL link and select **`Open Link`** to launch it in a web browser window.
+    d. The **Application Modernization Accelerator** application is started, **`right-click`** the application URL link and select **`Open Link`** to launch it in a web browser window.
  
      The URL is displayed in the output from the AMA command: [**https://localhost:3000**]
  
      ![](./images/media/image13.png)
  
+
+    e. Accept the security warning
+
+     ![](./images/media/image13a.png)
+ 
+    f. Accept all cookies
+
+     ![](./images/media/image13b.png)
+ 
+    
+
      The **Application Modernization Accelerator** Home page is displayed in the Web Browser.
  
      ![](./images/media/image14.png)
 
-    In the next section, you will create a new “**Workspace**” in Transformation Advisor and upload the saved results from the scan of a WebSphere Application Server that has a single application deployed, named “PlantsByWebSphere”.
+    In the next section, you will create a new “**Workspace**” in Application Modernization Accelerator and upload the saved results from the scan of a WebSphere Application Server that has a single application deployed, named “PlantsByWebSphere”.
 
 
 ## 1.3 Create new workspace and upload scan results from a WebSphere Application Server
 
 In this section, create a new workspace named **'proof_of_concept'**.
 
-A `workspace` is a designated area that will house the migration recommendations provided by Transformation Advisor based on the Data Collector scan results of your application server environment.
+A `workspace` is a designated area that will house the migration recommendations provided by Application Modernization Accelerator based on the Data Collector scan results of your application server environment.
 
 1. Create a new workspace named **Evaluation**
 
-    a.  From the Transformation Advisor Home page, click the **`Create New`** button
+    a.  From the Application Modernization Accelerator Home page, click the **`Create New`** button
 
     b.  Type **`Evaluation`** as the Workspace name. Then click the **`Create`** button
 
@@ -202,38 +213,52 @@ A `workspace` is a designated area that will house the migration recommendations
 
     The scan results file is provided for you.
 
-    It was produced by running the Transformation Advisor **Data Collector** on a WebSphere Application Server that had the **PlantsByWebSphere** application deployed.
+    It was produced by running the Application Modernization Accelerator **Data Collector** on a WebSphere Application Server that had the **PlantsByWebSphere** application deployed.
 
-    a. Click the **`Upload`** button
+    a. Click the **`Upload results`** button
+
+    ![Upload results](./images/media/image16.png)
+
 
     b. Click the **`Drop or add file`** link. Then click the **`Upload`** button
 
-    ![A screen shot of a computer Description automatically generated](./images/media/image16.png)
+    ![Upload results](./images/media/image16a.png)
 
-    c.  Navigate to **Home \> Techzone \> appmod-pot-labfiles \> labs \> RuntimeModernization**
 
-    d.  Select **`pbw-collection.zip`** file. Then click the **`Open`** button
+    
+    c.  Navigate to **Home \> itzuser \> Student \> AMA**
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image17.png)
+    d.  Select **`Dmgr.zip`** file. Then click the **`Open`** button
 
-    e. Once the **pbw-collection.zip** has been added, click on the **`Upload`** button to upload the results into Transformation Advisor.
+    ![Upload data collection](./images/media/image17.png)
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image18.png)
+    e. Once the **Dmgr.zip** has been added, click on the **`Upload`** button to upload the results into Application Modernization Accelerator.
 
-    After a few moments, the application data will be uploaded to the Transformation Advisor UI.
+    ![Upload data collection](./images/media/image18.png)
 
-    The "**proof_of_concept**" workspace displays the “**All Java Applications**” page which shows the recommendations for the workspace.
+    After a few moments, the application data will be uploaded to the Application Modernization Accelerator UI. You will be asked to select the target runtime. Select **Liberty** and click on **Confirm**.
+
+    ![Upload data collection](./images/media/image18a.png)
+
+    
+    The "**Evaluation**" workspace displays the “Visualization** of all applications in that workspace. The application you will focus on in the lab is the PlantsByWebSphere application which consists of an application server and a database.
+
+    ![AMA_Visualization_View](./images/media/image18c.png)
+
+    
+    Click on **Assessment** to see more details about the different applications.
+
+    ![AMA_Assessment_View](./images/media/image19.png)
+
 
     There is a single application called **plantsbywebsphereee6.ear**. 
     
-    By default, "WebSphere Liberty" is selected as a modernization target. All the information provided assumes that this application will be modernized to WebSphere Liberty.
-
-    ![A screenshot of a computer Description automatically generated](./images/media/image19.png)
+    
 
 
 ## 1.4 Analyze the plantsbywebsphereee6 application
 
- Transformation Advisor provides detailed information about each application that has been analyzed. This application has a complexity of **`Simple`**.
+ Application Modernization Accelerator provides detailed information about each application that has been analyzed. This application has a complexity of **`Simple`**.
  
  **Simple** means:
  
@@ -286,7 +311,7 @@ A `workspace` is a designated area that will house the migration recommendations
     ![A screenshot of a computer Description automatically generated](./images/media/image24.png)
 
 
-We will go through a step-by-step process of using the Transformation Advisor migration bundle to deploy **plantsbywebsphereee6.ear** as follows:
+We will go through a step-by-step process of using the Application Modernization Accelerator migration bundle to deploy **plantsbywebsphereee6.ear** as follows:
 
   1. Ensure the application can run locally on WebSphere Liberty
 
@@ -471,7 +496,7 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
 
     **So what happened?** 
     
-    Transformation Advisor does not collect any `sensitive data` for the application server.  This means the application-specific configuration information in the **server.xml** file has not been set. In this case, the `username` and `password` to access the database are missing.
+    Application Modernization Accelerator does not collect any `sensitive data` for the application server.  This means the application-specific configuration information in the **server.xml** file has not been set. In this case, the `username` and `password` to access the database are missing.
 
     In the next section, you will review the server.xml file and add the sensitive data required to access the application database.  
 
@@ -489,7 +514,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
         gedit /home/itzuser/wlp/usr/servers/pbwserver/server.xml
 
-    - **Section 1** contains the `features` that the application requires, and these are discovered automatically during analysis performed by the Transformation Advisor **Data Collector**.
+    - **Section 1** contains the `features` that the application requires, and these are discovered automatically during analysis performed by the Application Modernization Accelerator **Data Collector**.
 
       ![A screenshot of a computer Description automatically generated](./images/media/image38.png)
 
@@ -506,13 +531,13 @@ The **server.xml** file defines a set of **`features`** that the application req
       ![A computer screen shot of a program Description automatically generated](./images/media/image40.png)
 
 
-    - **Section 4** contains the variables for the **`non-sensitive configuration data`**. For example, the port to run the server on. The values of these variables are collected by Transformation Advisor.
+    - **Section 4** contains the variables for the **`non-sensitive configuration data`**. For example, the port to run the server on. The values of these variables are collected by Application Modernization Accelerator.
 
       ![A screen shot of a computer code Description automatically generated](./images/media/image41.png)
 
     - **Section 5** contains the **`sensitive data variables`**. 
     
-      You can see that the values for these variables are all **blank**, as this information is **never** collected by Transformation Advisor.
+      You can see that the values for these variables are all **blank**, as this information is **never** collected by Application Modernization Accelerator.
 
       ![A screenshot of a computer program Description automatically generated](./images/media/image42.png)
 
@@ -575,11 +600,11 @@ In the next sections, you will deploy the PlantsByWebSphere application to conta
 
 ## 3.1  Explore the Containerfile used to build PlantsByWebSphere as a container image
 
-In the previous section, you used the **server.xml** to get the  application running on a `local Liberty instance`. This was to show you how the Transformation Advisor **server.xml** file is used. If you are moving to Liberty in VMs as your new runtime, then you are done! 
+In the previous section, you used the **server.xml** to get the  application running on a `local Liberty instance`. This was to show you how the Application Modernization Accelerator **server.xml** file is used. If you are moving to Liberty in VMs as your new runtime, then you are done! 
 
-However. if containers are to be your final destination, this section explores the Transformation Advisor migration bundle artifacts that accelerate application deployment to Liberty in containers. 
+However. if containers are to be your final destination, this section explores the Application Modernization Accelerator migration bundle artifacts that accelerate application deployment to Liberty in containers. 
 
-In the case of **`Simple`** applications, it is not necessary to carry out a separate step of deploying to a local Liberty instance at all. Instead, by using the Transformation Advisor migration bundle, you can deploy your application to **Liberty running in a container** all in one go. 
+In the case of **`Simple`** applications, it is not necessary to carry out a separate step of deploying to a local Liberty instance at all. Instead, by using the Application Modernization Accelerator migration bundle, you can deploy your application to **Liberty running in a container** all in one go. 
 
 This is what we will do now.
 
@@ -706,12 +731,12 @@ In this section, you will build and run the PlantsByWebSphere application in a l
  
     The error is because we are using the unchanged server.xml file that came with the migration bundle. 
     
-    As outlined already, Transformation Advisor does not collect any sensitive data so the application specific configuration information has not been set. 
+    As outlined already, Application Modernization Accelerator does not collect any sensitive data so the application specific configuration information has not been set. 
     ___
 
 **Considerations & recommendations:**
 
-One option here is to update the **server.xml** file, add in the sensitive data values that Transformation Advisor did not collect and rebuild the image. 
+One option here is to update the **server.xml** file, add in the sensitive data values that Application Modernization Accelerator did not collect and rebuild the image. 
     
 However, a big part of container image value is that they are **`immutable`**. No matter where you take and deploy the image the operating system, runtime, security patch level, etc. will be the same. 
     
@@ -761,7 +786,7 @@ You have now created a a container image without any application specific config
 
 ### 4.1 Update the Kustomize structure to move the configmap configuration to the overlays folder
 
-It is common to have different application configuration between deployments such as `dev` and `staging`. In this lab, we use different DB2 application databases between the two configurations. For this reason , we want the configMap to be located in the Kustomize `overlays` folder, rather than the `base` where it is placed, by default, in the Transformation Advisor migration bundle. 
+It is common to have different application configuration between deployments such as `dev` and `staging`. In this lab, we use different DB2 application databases between the two configurations. For this reason , we want the configMap to be located in the Kustomize `overlays` folder, rather than the `base` where it is placed, by default, in the Application Modernization Accelerator migration bundle. 
 
 For the lab, we have provided the updated file structure for you. You just need to run the commands below to update the migration bundle. 
 
@@ -1130,7 +1155,7 @@ ___
 
 ___
 
-In this lab, you learned how to deploy applications to WebSphere Liberty using the WebSphere Liberty Operator and the deployment artifacts produced by Transformation Advisor in its migration bundle.
+In this lab, you learned how to deploy applications to WebSphere Liberty using the WebSphere Liberty Operator and the deployment artifacts produced by Application Modernization Accelerator in its migration bundle.
 
 You explored the options for deployment: 
 
@@ -1142,7 +1167,7 @@ You learned how to easily configure deployments to OpenShift to allow the same i
 
 You learned about some of the practical ways you can secure your configuration data.
 
-You explored the PlantsByWebSphere assessment details and reports in Transformation Advisor.
+You explored the PlantsByWebSphere assessment details and reports in Application Modernization Accelerator.
 
 
 ___
@@ -1198,13 +1223,13 @@ In both cases, there is additional work to be done above what has been covered i
 
 ## 6 Exploring the PlantsByWebSphere application in the proof_of_concept workspace
 
-IBM Cloud Transformation Advisor (TA) analyzes application and configuration data collected from Java application server environments. TA delivers great insights that help organizations plan and implement a modernization journey to WebSphere Liberty and Kubernetes base container platform for existing Java applications.
+IBM Cloud Application Modernization Accelerator (TA) analyzes application and configuration data collected from Java application server environments. TA delivers great insights that help organizations plan and implement a modernization journey to WebSphere Liberty and Kubernetes base container platform for existing Java applications.
  
 TA provides recommendations for modernization which includes and considers application complexity, dependencies, potential issues, and estimated development effort.
  
 ![A screenshot of a computer Description automatically generated](./images/media/image106.png)
 
-1. In a browser window, return to Transformation Advisor using the following URL: 
+1. In a browser window, return to Application Modernization Accelerator using the following URL: 
 
         http://localhost:3000
 
@@ -1289,9 +1314,9 @@ This workspace has only a single application name `plantsbywebsphereee6.ear`. It
 
     - Because the source was running Jave SE 8, the target is also set to Java SE 8.
 
-    By default, Transformation advisor recommends the first step of modernization to Liberty that requires the minimal amount of change and effort.
+    By default, Application Modernization Accelerator recommends the first step of modernization to Liberty that requires the minimal amount of change and effort.
  
-    You may use the binary scanner with the `--ta` option if you want to assess the modernization effort to newer versions Java, Jave EE, or Jakarta EE. Running the binary scanner with the `-ta` option produces an archive file that can be loaded into Transformation Advisor for analysis.
+    You may use the binary scanner with the `--ta` option if you want to assess the modernization effort to newer versions Java, Jave EE, or Jakarta EE. Running the binary scanner with the `-ta` option produces an archive file that can be loaded into Application Modernization Accelerator for analysis.
 
     d.  Click on the **`Information`** label, to review the details of this item.
 
@@ -1304,7 +1329,7 @@ This workspace has only a single application name `plantsbywebsphereee6.ear`. It
     ![A screenshot of a computer Description automatically generated](./images/media/image113.png)
 
 
-6.  Return to the **Cloud Transformation Advisor** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Inventory Report`**, which will open in a new browser tab.
+6.  Return to the **Cloud Application Modernization Accelerator** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Inventory Report`**, which will open in a new browser tab.
 
     ![A screenshot of a computer Description automatically generated](./images/media/image114.png)
 
@@ -1322,7 +1347,7 @@ This workspace has only a single application name `plantsbywebsphereee6.ear`. It
 
     ![A screenshot of a computer Description automatically generated](./images/media/image116.png)
 
-    d.  Return to the **Cloud Transformation Advisor** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Technology report`**, which will open in a new browser tab.
+    d.  Return to the **Cloud Application Modernization Accelerator** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Technology report`**, which will open in a new browser tab.
 
     The **Technology report** provides details on which editions of Liberty support the technologies used by the applications.
  
