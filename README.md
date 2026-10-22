@@ -117,7 +117,7 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
     mkdir ~/temp
     git clone https://github.com/LarsBesselmann/Liberty-Getting-Started-OCP ~/temp
-    cp -r Liberty-Getting-Started-OCP/DB2 ~
+    cp -r temp/db2 ~
 
 
 

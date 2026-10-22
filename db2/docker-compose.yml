@@ -11,7 +11,7 @@
 #   jdbc:db2://localhost:50000/PLANTSDB
 #   user:     db2inst1
 #   password: db2password
-#   schema:   PLANTSDB
+#   schema:   APP   (tables live in APP schema, matching the original Derby layout)
 # ============================================================
 
 services:

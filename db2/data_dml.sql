@@ -3,7 +3,7 @@
 -- Migrated from Apache Derby (schema: APP)
 -- ============================================================
 
-SET CURRENT SCHEMA = PLANTSDB;
+SET CURRENT SCHEMA = APP;
 INSERT INTO CUSTOMER (CUSTOMERID, PASSWORD, FIRSTNAME, LASTNAME, ADDR1, ADDR2, ADDRCITY, ADDRSTATE, ADDRZIP, PHONE) VALUES ('plants@plantsbywebsphere.ibm.com', 'plants', 'David', 'Grover', '123 Main Street', 'Apt. C', 'Raleigh', 'NC', '27604', '919-555-1234');
 INSERT INTO CUSTOMER (CUSTOMERID, PASSWORD, FIRSTNAME, LASTNAME, ADDR1, ADDR2, ADDRCITY, ADDRSTATE, ADDRZIP, PHONE) VALUES ('lb@mail.de', 'password', 'Lars', 'B', 'KAP', '', 'Ddorf', 'NRW', '40474', '171-567-1920');
 INSERT INTO IDGENERATOR (IDNAME, IDVALUE) VALUES ('ORDER', 1);

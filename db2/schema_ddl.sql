@@ -4,9 +4,10 @@
 -- Target: IBM DB2 Community Edition (container image)
 -- ============================================================
 
--- Create the application schema
-CREATE SCHEMA PLANTSDB;
-SET CURRENT SCHEMA = PLANTSDB;
+-- Create the application schema matching Derby's default schema name
+-- The application uses OpenJPA which hard-codes APP.TABLENAME references
+CREATE SCHEMA APP;
+SET CURRENT SCHEMA = APP;
 
 -- --------------------------------------------------------
 -- Table: BACKORDER
