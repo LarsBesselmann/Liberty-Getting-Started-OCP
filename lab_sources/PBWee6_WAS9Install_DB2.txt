@@ -1,0 +1,81 @@
+# Create JDBC providers
+
+# JDBC providers
+AdminTask.createJDBCProvider('[-scope Cell=Default01Cell -databaseType DB2 -providerType "DB2 Universal JDBC Driver Provider" -implementationType "XA data source" -name "DB2 Universal JDBC Driver Provider (XA)" -description "Two-phase commit DB2 JCC provider that supports JDBC 3.0. Data sources that use this provider support the use of XA to perform 2-phase commit processing. Use of driver type 2 on the application server for z/OS is not supported for data sources created under this provider." -classpath [${DB2UNIVERSAL_JDBC_DRIVER_PATH}/db2jcc.jar ${UNIVERSAL_JDBC_DRIVER_PATH}/db2jcc_license_cu.jar ${DB2UNIVERSAL_JDBC_DRIVER_PATH}/db2jcc_license_cisuz.jar ] -nativePath [${DB2UNIVERSAL_JDBC_DRIVER_NATIVEPATH} ] ]')
+AdminConfig.save()
+
+# JDBC providers
+AdminTask.createJDBCProvider('[-scope Cell=Default01Cell -databaseType DB2 -providerType "DB2 Universal JDBC Driver Provider" -implementationType "Connection pool data source" -name "DB2 Universal JDBC Driver Provider" -description "One-phase commit DB2 JCC provider that supports JDBC 3.0. Data sources that use this provider support only 1-phase commit processing, unless you use driver type 2 with the application server for z/OS. If you use the application server for z/OS, driver type 2 uses RRS and supports 2-phase commit processing." -classpath [${DB2UNIVERSAL_JDBC_DRIVER_PATH}/db2jcc.jar ${UNIVERSAL_JDBC_DRIVER_PATH}/db2jcc_license_cu.jar ${DB2UNIVERSAL_JDBC_DRIVER_PATH}/db2jcc_license_cisuz.jar ] -nativePath [${DB2UNIVERSAL_JDBC_DRIVER_NATIVEPATH} ] ]')
+AdminConfig.save()
+
+# Create Security Alias
+# Data sources > JAAS - J2C authentication data > New...
+AdminTask.createAuthDataEntry('[-alias DB2INST1 -user DB2INST1 -password ******** -description DB2INST1_PASSWORD=db2password ]')
+
+AdminConfig.save()
+
+
+# Create Data Sources
+
+# Data sources > JAAS - J2C authentication data
+AdminTask.createDatasource('"DB2 Universal JDBC Driver Provider (XA)"', '[-name "PBW XA DataSource" -jndiName jdbc/PlantsByWebSphereDataSource -dataStoreHelperClassName com.ibm.websphere.rsadapter.DB2UniversalDataStoreHelper -containerManagedPersistence true -componentManagedAuthenticationAlias Dmgr01Node/DB2INST1 -xaRecoveryAuthAlias Dmgr01Node/DB2INST1 -configureResourceProperties [[databaseName java.lang.String PLANTSDB] [driverType java.lang.Integer 4] [serverName java.lang.String vm-1] [portNumber java.lang.Integer 50000]]]')
+
+# [10/22/26 4:23:31:960 EDT] Data sources > JAAS - J2C authentication data
+AdminConfig.create('MappingModule', '(cells/Default01Cell|resources.xml#DataSource_1792657411454)', '[[authDataAlias Dmgr01Node/DB2INST1] [mappingConfigAlias ""]]')
+
+# [10/22/26 4:23:31:964 EDT] Data sources > JAAS - J2C authentication data
+AdminConfig.modify('(cells/Default01Cell|resources.xml#CMPConnectorFactory_1792657411478)', '[[name "PBW XA DataSource_CF"] [authDataAlias "Dmgr01Node/DB2INST1"] [xaRecoveryAuthAlias "Dmgr01Node/DB2INST1"]]')
+
+# [10/22/26 4:23:31:965 EDT] Data sources > JAAS - J2C authentication data
+AdminConfig.create('MappingModule', '(cells/Default01Cell|resources.xml#CMPConnectorFactory_1792657411478)', '[[authDataAlias Dmgr01Node/DB2INST1] [mappingConfigAlias ""]]')
+
+# [10/22/26 4:24:17:915 EDT] Data sources
+AdminConfig.save()
+
+# [10/22/26 4:25:55:975 EDT] Data sources
+AdminTask.createDatasource('"DB2 Universal JDBC Driver Provider(cells/Default01Cell|resources.xml#JDBCProvider_1792657114414)"', '[-name "PBW non-JTA DataSource" -jndiName jdbc/PlantsByWebSphereDataSourceNONJTA -dataStoreHelperClassName com.ibm.websphere.rsadapter.DB2UniversalDataStoreHelper -containerManagedPersistence true -componentManagedAuthenticationAlias Dmgr01Node/DB2INST1 -configureResourceProperties [[databaseName java.lang.String PLANTSDB] [driverType java.lang.Integer 4] [serverName java.lang.String vm-1] [portNumber java.lang.Integer 50000]]]')
+
+# [10/22/26 4:25:55:979 EDT] Data sources
+AdminConfig.create('MappingModule', '(cells/Default01Cell|resources.xml#DataSource_1792657555770)', '[[authDataAlias Dmgr01Node/DB2INST1] [mappingConfigAlias ""]]')
+
+# [10/22/26 4:25:55:981 EDT] Data sources
+AdminConfig.modify('(cells/Default01Cell|resources.xml#CMPConnectorFactory_1792657555804)', '[[name "PBW non-JTA DataSource_CF"] [authDataAlias "Dmgr01Node/DB2INST1"] [xaRecoveryAuthAlias ""]]')
+
+# [10/22/26 4:25:55:982 EDT] Data sources
+AdminConfig.create('MappingModule', '(cells/Default01Cell|resources.xml#CMPConnectorFactory_1792657555804)', '[[authDataAlias Dmgr01Node/DB2INST1] [mappingConfigAlias ""]]')
+
+# [10/22/26 4:27:09:101 EDT] Data sources
+AdminConfig.save()
+
+
+# Set JPA Spec Level to 2.0
+
+# [10/22/26 4:59:46:976 EDT] Application servers > server1
+AdminTask.showJPASpecLevel('server1(cells/Default01Cell/nodes/AppSrv01Node1/servers/server1|server.xml)')
+
+# [10/22/26 4:59:54:377 EDT] Application servers > server1 > Default Java Persistence API settings
+AdminTask.modifyJPASpecLevel('server1(cells/Default01Cell/nodes/AppSrv01Node1/servers/server1|server.xml)', '[-specLevel 2.0]')
+
+# [10/22/26 4:59:58:076 EDT] Application servers > server1
+AdminConfig.save()
+
+# Install the application
+
+# Enterprise Applications
+AdminApp.install('C:/fakepath/plantsbywebsphereee6.ear', '[  -nopreCompileJSPs -distributeApp -nouseMetaDataFromBinary -nodeployejb -appname plantsbywebsphereee6 -createMBeansForResources -noreloadEnabled -nodeployws -validateinstall warn -noprocessEmbeddedConfig -filepermission .*\.dll=755#.*\.so=755#.*\.a=755#.*\.sl=755 -noallowDispatchRemoteInclude -noallowServiceRemoteInclude -asyncRequestDispatchType DISABLED -nouseAutoLink -noenableClientModule -clientMode isolated -novalidateSchema -MapModulesToServers [[ PlantsByWebSphere PlantsByWebSphere.war,WEB-INF/web.xml WebSphere:cell=Default01Cell,node=AppSrv01Node1,server=server1 ]]]' )
+
+# [10/22/26 5:02:19:525 EDT] Enterprise Applications > Enterprise Applications
+AdminConfig.save()
+
+# [10/22/26 7:38:01:358 EDT] Application servers > server1 > Process definition > Java Virtual Machine
+AdminTask.setJVMProperties('[-nodeName AppSrv01Node1 -serverName server1 -verboseModeJNI false -runHProf false -hprofArguments  -executableJarFileName  -disableJIT false -verboseModeClass false -verboseModeGarbageCollection true -debugMode false -debugArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7778" -genericJvmArguments "-Dopenjpa.RuntimeUnenhancedClasses=supported"]')
+
+# [10/22/26 7:38:04:535 EDT] Application servers > server1 > Process definition
+AdminConfig.save()
+
+# [10/22/26 7:38:10:618 EDT] Application servers > server1 > Process definition
+AdminConfig.modify('(cells/Default01Cell/nodes/AppSrv01Node1/servers/server1|server.xml#JavaProcessDef_1183122130078)', '[[executableTarget "com.ibm.ws.runtime.WsServer"] [executableName ""] [stopCommand ""] [stopCommandArgs ""] [workingDirectory "${USER_INSTALL_ROOT}"] [startCommandArgs ""] [executableArguments ""] [startCommand ""] [executableTargetKind "JAVA_CLASS"]]')
+
+# [10/22/26 7:38:53:985 EDT] Application servers > server1
+AdminConfig.save()
+
