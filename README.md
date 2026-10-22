@@ -510,7 +510,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     Using the “**`gedit`**” editor in a **`Terminal`** window, open the **server.xml** file located in the Liberty server
 
-        gedit ~/Student/wlp/usr/servers/pbwserver/server.xml
+        gedit ~/Student/wlp/usr/servers/pbwserver/server.xml &
 
     - **Section 1** contains the `features` that the application requires, and these are discovered automatically during analysis performed by the Application Modernization Accelerator **Data Collector**.
 
