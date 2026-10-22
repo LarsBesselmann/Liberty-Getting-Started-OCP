@@ -510,7 +510,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     Using the “**`gedit`**” editor in a **`Terminal`** window, open the **server.xml** file located in the Liberty server
 
-        gedit /home/itzuser/wlp/usr/servers/pbwserver/server.xml
+        gedit ~/Student/wlp/usr/servers/pbwserver/server.xml
 
     - **Section 1** contains the `features` that the application requires, and these are discovered automatically during analysis performed by the Application Modernization Accelerator **Data Collector**.
 
@@ -552,13 +552,13 @@ The **server.xml** file defines a set of **`features`** that the application req
 
 1. From a Terminal window, `stop` the Liberty server named ‘pbwserver”
 
-        /home/itzuser/wlp/bin/server stop pbwserver
+        ~/Student/wlp/bin/server stop pbwserver
 
 2. From the `gedit` editor that you have open, update the values in the **server.xml** file for the sensitive data as illustrtated below:
 
    a. Scroll to the bottom of the `server.xml` file to view the sensitive-data variables. 
 
-   b.  Set the default value for **rhel9_baseNode01_pbwuser_password** to: **`db2inst1-pwd`**
+   b.  Set the default value for **rhel9_baseNode01_pbwuser_password** to: **`dbpassword`**
     
    c. Set the default value for **rhel9_baseNode01_pbwuser_user** to: **`db2inst1`**
 
@@ -569,7 +569,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
 3. From a Terminal window, `start` the Liberty server named ‘pbwserver”
 
-        /home/itzuser/wlp/bin/server start pbwserver
+        ~/Student/wlp/bin/server start pbwserver
 
 
 4. Reload and test PlantsByWebSphere application in the browser
@@ -584,7 +584,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
 3. From a **Terminal** window, `Stop` the Liberty server named ‘**pbwserver**”
 
-        /home/itzuser/wlp/bin/server stop pbwserver
+        ~/Student/wlp/bin/server stop pbwserver
 
 
 ### Checkpoint
