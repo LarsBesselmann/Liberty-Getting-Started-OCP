@@ -556,15 +556,20 @@ The **server.xml** file defines a set of **`features`** that the application req
 
 2. From the `gedit` editor that you have open, update the values in the **server.xml** file for the sensitive data as illustrtated below:
 
-   a. Scroll to the bottom of the `server.xml` file to view the sensitive-data variables. 
+    a. Scroll to the bottom of the `server.xml` file to view the sensitive-data variables. 
 
-   b.  Set the default value for **rhel9_baseNode01_pbwuser_password** to: **`dbpassword`**
+    b.  Set the default value for **rhel9_baseNode01_pbwuser_password** to: **`dbpassword`**
     
-   c. Set the default value for **rhel9_baseNode01_pbwuser_user** to: **`db2inst1`**
+    c. Set the default value for **rhel9_baseNode01_pbwuser_user** to: **`db2inst1`**
 
      ![](./images/media/image44.png)
     
-   d. **`Save`** and **`close`** the server.xml in the editor
+    d. **`Save`** and **`close`** the server.xml in the editor
+
+    e. You might have detected that the database host is defined in the server.xml as **vm-1** but now is located on the host **desktop-2**.
+    Use the following command to replace it.
+
+        sed -i 's/vm-1/desktop-2/g' ~/Student/wlp/usr/servers/pbwserver/server.xml
 
 
 3. From a Terminal window, `start` the Liberty server named ‘pbwserver”
