@@ -24,9 +24,13 @@ ENV LICENSE=accept
 ENV DB2INST1_PASSWORD=db2password
 ENV DBNAME=PLANTSDB
 
-# Copy SQL scripts into the image
-COPY schema_ddl.sql /var/custom/schema_ddl.sql
-COPY data_dml.sql   /var/custom/data_dml.sql
+# Copy SQL scripts to a separate directory (NOT /var/custom/)
+# The DB2 image entrypoint tries to execute every file in /var/custom/
+# as a shell script, so only createdb.sh must live there.
+COPY schema_ddl.sql /var/db2_scripts/schema_ddl.sql
+COPY data_dml.sql   /var/db2_scripts/data_dml.sql
+RUN  chmod 644      /var/db2_scripts/schema_ddl.sql \
+                    /var/db2_scripts/data_dml.sql
 
 # Copy the init script that will run after DB2 starts
 COPY createdb.sh    /var/custom/createdb.sh

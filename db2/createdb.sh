@@ -14,20 +14,25 @@ set -uo pipefail
 
 DB_NAME="PLANTSDB"
 DB_USER="db2inst1"
-CUSTOM_DIR="/var/custom"
+SCRIPT_DIR="/var/db2_scripts"
 INIT_FLAG="/database/${DB_NAME}/.plantsdb_initialized"
 
 echo ">>> [createdb.sh] PlantsByWebSphere DB2 initialisation starting ..."
 
 # ── Helper: run SQL as db2inst1 in one connection ────────────
 run_sql_file() {
-    su - "${DB_USER}" -c "db2 -tvf $1"
+    local sqlfile="$1"
+    # Make the file readable by db2inst1
+    chmod 644 "${sqlfile}"
+    su - "${DB_USER}" -c "db2 -tvf '${sqlfile}'"
 }
 
 # ── Step 1: Create the database (first boot only) ────────────
 if [ ! -f "${INIT_FLAG}" ]; then
     echo ">>> [createdb.sh] First boot detected – creating database ${DB_NAME} ..."
-    su - "${DB_USER}" -c "db2 CREATE DATABASE ${DB_NAME} USING CODESET UTF-8 TERRITORY US PAGESIZE 32768"
+    # SQL1005N means it already exists from a prior failed run – treat as success
+    su - "${DB_USER}" -c "db2 CREATE DATABASE ${DB_NAME} USING CODESET UTF-8 TERRITORY US PAGESIZE 32768" \
+        || echo ">>> [createdb.sh] Database may already exist (SQL1005N) – continuing."
 else
     echo ">>> [createdb.sh] Database ${DB_NAME} already initialised – skipping CREATE."
 fi
@@ -47,7 +52,7 @@ if [ ! -f "${INIT_FLAG}" ]; then
     {
         echo "CONNECT TO ${DB_NAME};"
         echo "SET CURRENT SCHEMA = APP;"
-        sed 's/^\xEF\xBB\xBF//' "${CUSTOM_DIR}/schema_ddl.sql"
+        sed 's/^\xEF\xBB\xBF//' "${SCRIPT_DIR}/schema_ddl.sql"
         echo "CONNECT RESET;"
     } > "${DDL_CLEAN}"
 
@@ -64,7 +69,7 @@ if [ ! -f "${INIT_FLAG}" ]; then
     {
         echo "CONNECT TO ${DB_NAME};"
         echo "SET CURRENT SCHEMA = APP;"
-        sed 's/^\xEF\xBB\xBF//' "${CUSTOM_DIR}/data_dml.sql" \
+        sed 's/^\xEF\xBB\xBF//' "${SCRIPT_DIR}/data_dml.sql" \
             | grep -v 'SET CURRENT SCHEMA'
         echo "CONNECT RESET;"
     } > "${DATA_CLEAN}"
@@ -75,7 +80,8 @@ if [ ! -f "${INIT_FLAG}" ]; then
     rm -f "${DATA_CLEAN}"
 
     # Mark initialisation complete so subsequent starts skip CREATE steps
-    mkdir -p "$(dirname ${INIT_FLAG})"
+    # Use /tmp as fallback if /database volume is not mounted
+    mkdir -p "$(dirname "${INIT_FLAG}")" 2>/dev/null || INIT_FLAG="/tmp/.plantsdb_initialized"
     touch "${INIT_FLAG}"
     echo ">>> [createdb.sh] First-boot initialisation complete."
 fi
