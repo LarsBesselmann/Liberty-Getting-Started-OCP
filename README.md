@@ -115,14 +115,17 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
 **Create podman container with the PlantsByWebSphere database pbwdb**
 
-    podman pull ibmcom/db2
-    podman run --privileged=true -d \
-    --name db2-pbwdb \
+    ## Needs sudo
+    sudo podman run -d \
+    --name db2-pbw \
+    --privileged \
+    -p 50000:50000 \
     -e LICENSE=accept \
     -e DB2INST1_PASSWORD=password \
-    -e DBNAME=pbwdb \
-    -p 50000:50000 \
-    ibmcom/db2
+    -e DBNAME=pbw \
+    -v db2-pbw-data:/database \
+    docker.io/ibmcom/db2:latest
+
 
 **Create Student directory**
 

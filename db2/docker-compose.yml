@@ -1,0 +1,61 @@
+# ============================================================
+# PlantsByWebSphere – DB2 Docker Compose
+#
+# Spins up a single IBM DB2 Community Edition container with
+# the PLANTSDB database pre-populated with schema and seed data.
+#
+# Quick start:
+#   docker compose up -d
+#
+# Connect with a DB2 client:
+#   jdbc:db2://localhost:50000/PLANTSDB
+#   user:     db2inst1
+#   password: db2password
+#   schema:   PLANTSDB
+# ============================================================
+
+services:
+  plantsdb-db2:
+    build:
+      context: .          # build from the db2/ directory
+      dockerfile: Dockerfile
+    image: plantsdb-db2:latest
+    container_name: plantsdb-db2
+    hostname: plantsdb-db2
+
+    environment:
+      # Must be "accept" to agree to the IBM DB2 license
+      LICENSE: "accept"
+      # Password for the db2inst1 OS / DB2 user
+      DB2INST1_PASSWORD: "db2password"
+      # Database name to auto-create on first boot
+      DBNAME: "PLANTSDB"
+      # Disable HADR for a standalone development container
+      HADR_ENABLED: "false"
+
+    ports:
+      # DB2 SQL port – used by JDBC clients
+      - "50000:50000"
+
+    volumes:
+      # Persist database files so the DB survives container restarts.
+      # Remove this volume to force a clean re-initialisation.
+      - plantsdb-data:/database
+
+    # The DB2 image can take up to 3 minutes to initialise on first run.
+    healthcheck:
+      test: ["CMD-SHELL", "su - db2inst1 -c 'db2 connect to PLANTSDB && db2 disconnect PLANTSDB'"]
+      interval: 30s
+      timeout: 20s
+      retries: 10
+      start_period: 120s
+
+    # Limit resource usage in development environments
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+
+volumes:
+  plantsdb-data:
+    driver: local
