@@ -113,17 +113,25 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
     rm -rf ~/IBM
     rm -rf ~/transformation-advisor-local-3.8.1
 
-**Create podman container with the PlantsByWebSphere database pbwdb**
+**Create Student directory**
+
+    mkdir -p /home/itzuser/Student
+
+** Clone the project repository
 
     mkdir ~/temp
     git clone https://github.com/LarsBesselmann/Liberty-Getting-Started-OCP ~/temp
-    cp -r temp/db2 ~
+    
+    mv ~/temp/lab_sources ~/Student
+    
 
+**Create podman container with the PlantsByWebSphere database pbwdb**
 
+    cd ~/Student
 
     ## Needs sudo
 
-    sudo podman build -t plantsdb-db2 ./db2
+    sudo podman build -t plantsdb-db2 ./lab_sources/db2
 
     sudo podman run --privileged=true -d \
     --name plantsdb-db2 \
@@ -133,10 +141,6 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
     -e DBNAME=PLANTSDB \
     -v plantsdb-data:/database \
     plantsdb-db2
-
-**Create Student directory**
-
-    mkdir -p /home/itzuser/Student
 
 
 # Part 1: Application Assesment    
