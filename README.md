@@ -129,7 +129,7 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
     cd ~/Student
 
-    ## Needs sudo
+    ## Needs sudo for DB2 (rootless not allowed)
 
     sudo podman build -t plantsdb-db2 ./plantsdb-db2
 
@@ -142,45 +142,12 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
     -v plantsdb-data:/database \
     plantsdb-db2
 
+    netstat -an | grep 50000
+
 
 # Part 1: Application Assesment    
 
-## 1.1 Pull down the Lab artifacts and setup lab environment
-
-1.  If you have not yet cloned the GitHub repo with the lab artifacts, in a previous lab, run the following command on your terminal:
-
-    a.  Open a new Terminal window and clone the git repository to pull down the lab artifacts
-
-    ![A screen shot of a computer Description automatically generated](./images/media/image10.png)
-
-    b.  Run the commands to clone the git repository to the local system
-
-        cd /home/itzuser/Student
-
-        git clone https://github.com/IBMTechSales/appmod-pot-labfiles.git
-
-    c.  **Add “execute” permissions to the shell scripts**
-
-        find ./appmod-pot-labfiles -name "*.sh" -exec chmod +x {} \; 
-
-    d. **Create DB2 Driver directory**
-
-        mkdir ~/Student/db2_drivers
-        cp ~/Student/appmod-pot-labfiles/labs/RuntimeModernization/license-demo/pbw_migrationBundle/src/main/liberty/lib/db2jcc*.jar ~/Student/db2_drivers
-        ls -lrt ~/Student/db2_drivers
-
-
-
-2. Start the PlantsByWebSphere application database
-
-    The PlantsByWebShere application database runs in a local podman container. Use the command below to start the database. 
-
-        podman start db2-pbwdb
-        netstat -an | grep 50000
-
-
-
-## 1.2 Launch Application Modernization Accelerator (local)
+## 1.1 Launch Application Modernization Accelerator (local)
 
 Application Modernization Accelerator provides a **`migration plan`** for each application being assessed for modernization. The migration plan includes a **`migration bundle`** of generated artifacts that accelerate the deployment of applications to Liberty in containers and Kubernetes / OpenShift.
 
@@ -191,8 +158,6 @@ The Application Modernization Accelerator is installed locally on the **Workstat
 1. Launch the Application Modernization Accelerator tool using the steps below.
 
     a.  From **Workstation** VM Desktop Tool Bar, click the `Terminal` icon to open a Terminal window.
-
-    ![](./images/media/image11.png)
 
     b.  Launch the **Application Modernization Accelerator** with commands:
 
