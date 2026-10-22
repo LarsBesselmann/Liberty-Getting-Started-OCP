@@ -540,7 +540,7 @@ The **server.xml** file defines a set of **`features`** that the application req
       ![A screenshot of a computer program Description automatically generated](./images/media/image42.png)
 
 
-2.  The reason that the **PlantsByWebSphere** application retuned an “Exception” is because the values for the **sensitive variables** has not been set. 
+2.  The reason that the **PlantsByWebSphere** application returned an “Exception” is because the values for the **sensitive variables** has not been set - neither in the server.xml nor in the environment. 
   
     ![](./images/media/image43.png)
 
@@ -574,7 +574,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
 4. Reload and test PlantsByWebSphere application in the browser
 
-        http://localhost:9080/PlantsByWebSphere
+    http://localhost:9080/PlantsByWebSphere
 
 
     a. Click the “**Flowers**” tab. The catalog of flowers should now be displayed.
