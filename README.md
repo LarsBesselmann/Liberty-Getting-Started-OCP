@@ -115,14 +115,13 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
 **Create Student directory**
 
-    mkdir -p /home/itzuser/Student
+    mkdir -p ~/Student/temp
 
 ** Clone the project repository
 
-    mkdir ~/Student/temp
     git clone https://github.com/LarsBesselmann/Liberty-Getting-Started-OCP ~/Student/temp
-    
     mv ~/Student/temp/lab_sources ~/Student
+    ls -lrt ~/Student
     
 
 **Create podman container with the PlantsByWebSphere database pbwdb**
