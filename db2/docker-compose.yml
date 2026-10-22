@@ -32,6 +32,10 @@ services:
       DBNAME: "PLANTSDB"
       # Disable HADR for a standalone development container
       HADR_ENABLED: "false"
+      # Automatically activate the database after every container start,
+      # not just on first-boot init – prevents SQLCODE=-1035 (db in use / inactive)
+      DB2_WORKLOAD: "ANALYTICS"
+      AUTOCONFIG: "NO"
 
     ports:
       # DB2 SQL port – used by JDBC clients
@@ -43,8 +47,9 @@ services:
       - plantsdb-data:/database
 
     # The DB2 image can take up to 3 minutes to initialise on first run.
+    # The healthcheck also serves as the readiness signal for dependent services.
     healthcheck:
-      test: ["CMD-SHELL", "su - db2inst1 -c 'db2 connect to PLANTSDB && db2 disconnect PLANTSDB'"]
+      test: ["CMD-SHELL", "su - db2inst1 -c 'db2 ACTIVATE DATABASE PLANTSDB && db2 CONNECT TO PLANTSDB && db2 CONNECT RESET'"]
       interval: 30s
       timeout: 20s
       retries: 10

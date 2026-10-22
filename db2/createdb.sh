@@ -27,6 +27,12 @@ echo ">>> [createdb.sh] Creating database ${DB_NAME} ..."
 su - "${DB_USER}" -c "db2 CREATE DATABASE ${DB_NAME} USING CODESET UTF-8 TERRITORY US PAGESIZE 32768" \
   || echo ">>> [createdb.sh] Database ${DB_NAME} may already exist – continuing."
 
+# ── Step 1b: Activate the database ──────────────────────────
+# ACTIVATE DATABASE starts all required background processes and
+# puts the database into multi-user mode so connections are accepted.
+echo ">>> [createdb.sh] Activating database ${DB_NAME} ..."
+su - "${DB_USER}" -c "db2 ACTIVATE DATABASE ${DB_NAME}"
+
 # ── Step 2: Create APP schema ────────────────────────────────
 # Each db2 CLP invocation is its own connection; SET CURRENT SCHEMA
 # only persists for the lifetime of that connection.  We therefore
