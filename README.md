@@ -471,22 +471,20 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
 
 9. Start the Liberty server
 
-        ~/Student/wlp/bin/server start pbwserver
+        ~/Student/wlp/bin/server start pbwserver --clean
 
 
 10.  Run the PlantsByWebSphere application from the browser.
 
         http://localhost:9080/PlantsByWebSphere
  
-    Now the application is running in Liberty, and the main page is displayed.
+        Now the application is running in Liberty, and the main page is displayed.
  
-    ![A website page of a garden Description automatically generated](./images/media/image36.png)
+        ![A website page of a garden Description automatically generated](./images/media/image36.png)
 
 11.  Attempt to click on any of the tabs: “**Flowers**”, **Fruits & Vegetables**”, or “**Trees**”.
 
-    ___
-
-    **Note the exception.** This is an expected erorr. The issue is in the JPA persistence (Database access). A user is not defined, and therefore authentication to the database failed.
+12. **Note the exception.** This is an expected error. The issue is in the JPA persistence (Database access). A user is not defined, and therefore authentication to the database failed.
  
     ![A screen shot of a computer Description automatically generated](./images/media/image37.png)
  
