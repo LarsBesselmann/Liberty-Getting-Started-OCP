@@ -120,7 +120,8 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 ** Clone the project repository
 
     git clone https://github.com/LarsBesselmann/Liberty-Getting-Started-OCP ~/Student/temp
-    mv ~/Student/temp/lab_sources ~/Student
+    mv ~/Student/temp/lab_sources/* ~/Student
+    rm -rf ~/Student/temp
     ls -lrt ~/Student
     
 
