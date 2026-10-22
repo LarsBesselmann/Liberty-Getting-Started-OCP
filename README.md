@@ -569,7 +569,7 @@ The **server.xml** file defines a set of **`features`** that the application req
     e. You might have detected that the database host is defined in the server.xml as **vm-1** but now is located on the host **desktop-2**.
     Use the following command to replace it.
 
-        sed -i 's/vm-1/desktop-2/g' ~/Student/wlp/usr/servers/pbwserver/server.xml
+        sed -i 's/vm-1/desktop-2/g' /home/itzuser/Student/wlp/usr/servers/pbwserver/server.xml
 
 
 3. From a Terminal window, `start` the Liberty server named ‘pbwserver”
