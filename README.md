@@ -628,18 +628,21 @@ This is what we will do now.
 
 1.	Add the PlantsByWebSphere binary file to your migration bundle, and remove the placeholder.
 
-        cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/plantsbywebsphereee6.ear /home/itzuser/Student/labs/appmod/migration-bundle/target  
+        cp ~/Student/plantsbywebsphereee6.ear ~/Student/migrationPlan/target
 
-        rm /home/itzuser/Student/labs/appmod/migration-bundle/target/plantsbywebsphereee6.ear.placeholder
+        rm ~/Student/migrationPlan/target/plantsbywebsphereee6.ear.placeholder
 
 
 2.	Add the db2 library files to your migration bundle, and remove the placeholder.
 
-        cp /home/itzuser/Student/LabFiles/db2_drivers/* /home/itzuser/Student/labs/appmod/migration-bundle/src/main/liberty/lib  
+        cp ~/Student/db2_drivers/* ~/Student/migrationPlan/src/main/liberty/lib  
 
-        rm /home/itzuser/Student/labs/appmod/migration-bundle/src/main/liberty/lib/*.placeholder
+        rm ~/Student/migrationPlan/src/main/liberty/lib/*.placeholder
 
 3.	Update the server.xml file to remove the TLS configuration which is not used. 
+
+        cp ~/Student/wlp/usr/servers/pbwserver/server.xml ~/Student/migrationPlan/src/main/liberty/config
+
 
         cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/server.xml /home/itzuser/Student/labs/appmod/migration-bundle/src/main/liberty/config 
 
