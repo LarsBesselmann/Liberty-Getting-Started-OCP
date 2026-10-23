@@ -767,7 +767,7 @@ To make sure the container as is works, let's inject the credentials via environ
     podman stop pbw-app
     podman rm pbw-app
 
-    podman run -d --rm -p 9080:9080 --name pbw-app  apps/pbw -e rhel9_baseNode01_pbwuser_password=dbpassword -e rhel9_baseNode01_pbwuser_user=db2inst1
+    podman run -d --rm -p 9080:9080 -e rhel9_baseNode01_pbwuser_password=dbpassword -e rhel9_baseNode01_pbwuser_user=db2inst1 --name pbw-app  apps/pbw 
 
 ___
 
