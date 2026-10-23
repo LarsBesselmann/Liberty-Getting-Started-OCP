@@ -766,10 +766,9 @@ To make sure the container as is works, let's inject the credentials via environ
 
     podman stop pbw-app
 
-    podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password=dbpassword -e Dmgr01Node_DB2INST1_user=db2inst1 --name pbw-app  apps/pbw 
+    podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password="dbpassword" -e Dmgr01Node_DB2INST1_user="db2inst1" --name pbw-app  apps/pbw 
 
 ___
-
 
 
 ## 3.2 Understand how Kustomize is used in the migration plan
