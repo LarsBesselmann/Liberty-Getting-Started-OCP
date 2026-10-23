@@ -94,7 +94,7 @@ To simplify the lab and to allow you to focus on the migration plan, certain sof
 
 # Part 0: Prepare environment
 
-**Disable Docker**
+**Disable docker**
 
     unalias docker
     sudo mv /bin/docker /bin/docker.sav
@@ -689,7 +689,7 @@ This is what we will do now.
 
 In this section, you will build and run the PlantsByWebSphere application in a local container.
 
-1.	Build the container image from the migration plan using docker
+1.	Build the container image from the migration plan using podman
 
         cd ~/Student/migrationPlan
 
@@ -699,13 +699,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
     - `--tag` allows you to define the name and version of the image to build
     - `.` is the "current directory" of the migration plan that includes the artifacts for building the container image. 
 
-    **Note:** Ignore the following warning message. This will be fixed in the next release of Transfromation Advisor 
-
-    ```
-    1 warning found (use --debug to expand):
-    - Empty continuation line found in: RUN mkdir -p /config/apps &&     mkdir -p /sharedlibs &&     cp ./src/main/liberty/config/* /config &&     cp ./target/*.*ar /config/apps/ &&     if [ ! -z "$(ls ./src/main/liberty/lib 2>/dev/null)" ]; then         cp -r ./src/main/liberty/lib/* /sharedlibs;     fi
-    ```
-
+    
 4. Confirm the container image has been built
 
         podman images | grep apps/pbw
@@ -714,20 +708,20 @@ In this section, you will build and run the PlantsByWebSphere application in a l
     ![](./images/media/pbw-image-listed.png)
 
 
-5.	The next step is to run the image using the `docker run`command.
+5.	The next step is to run the image using the `podman run`command.
 
         podman run -d --rm -p 9080:9080 --name pbw-app  apps/pbw
 
     -  `-d` start the container in 'detached' mode so you get your command prompt back
     -  `--rm` remove the container when it is stopped
     -  `-p` expose the HTTP port
-    - `--network` connect the container to the same docker network as the DB2 container
+    - `--network` connect the container to the same podman network as the DB2 container
     -  `--name` is the name we are giving the container 
 
 
 6.	Check that the contaier is up and running. 
 
-        docker ps | grep pbw-app
+        podman ps | grep pbw-app
 
     ![](./images/media/pbw-app-up.png)
 
@@ -929,14 +923,14 @@ To deploy the PlantsByWebSphere application to OpenShift, you must perform the f
     a. Go to a `Terminal` window   
         
         
-    b. Tag the container image using the following docker command
+    b. Tag the container image using the following podman command
     
-        docker tag apps/pbw default-route-openshift-image-registry.apps.ocp.ibm.edu/apps-pbw/pbw-app:1.0
+        podman tag apps/pbw default-route-openshift-image-registry.apps.ocp.ibm.edu/apps-pbw/pbw-app:1.0
 
 
 2. Verify the image was tagged
 
-        docker images | grep pbw-app
+        podman images | grep pbw-app
 
     ![](./images/media/pbw-apps-tagged.png)
 
@@ -952,11 +946,11 @@ To deploy the PlantsByWebSphere application to OpenShift, you must perform the f
 
 5. Login to the OpnShift internal registry so you can push the image 
 
-        docker login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.ocp.ibm.edu 
+        podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.ocp.ibm.edu 
 
 6. Push the container image to OpenShift internal registry
 
-        docker push default-route-openshift-image-registry.apps.ocp.ibm.edu/apps-pbw/pbw-app:1.0        
+        podman push default-route-openshift-image-registry.apps.ocp.ibm.edu/apps-pbw/pbw-app:1.0        
 
 In previous steps, you configured the sensitive data that is needed, accepted the license, pointed to the image that is needed to pull,  and logged into OpenShift. Now, with a single command, you can deploy to OpenShift and configure the image. 
 
