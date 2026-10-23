@@ -698,7 +698,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
     - `.` is the "current directory" of the migration plan that includes the artifacts for building the container image. 
 
     
-4. Confirm the container image has been built
+2. Confirm the container image has been built
 
         podman images | grep apps/pbw
 
@@ -706,7 +706,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
     ![](./images/media/pbw-image-listed.png)
 
 
-5.	The next step is to run the image using the `podman run`command.
+3.	The next step is to run the image using the `podman run`command.
 
         podman run -d --rm -p 9080:9080 --name pbw-app  apps/pbw
 
@@ -717,7 +717,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
     -  `--name` is the name we are giving the container 
 
 
-6.	Check that the contaier is up and running. 
+4.	Check that the contaier is up and running. 
 
         podman ps | grep pbw-app
 
@@ -725,11 +725,11 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
 
 
-7.  From the browser, access the PlantsByWebSphere application that is running in the local container:
+5.  From the browser, access the PlantsByWebSphere application that is running in the local container:
 
     http://localhost:9080/PlantsByWebSphere
  
-     ![A screenshot of a web page Description automatically generated](./images/media/image61.png)
+     ![PBW](./images/media/image61.png)
  
     
     Attempt to click on any of the tabs: “**Flowers**”, **Fruits & Vegetables**”, or “**Trees**”.
@@ -743,6 +743,29 @@ In this section, you will build and run the PlantsByWebSphere application in a l
     The error is because we are using the unchanged server.xml file that came with the migration plan. 
     
     As outlined already, Application Modernization Accelerator does not collect any sensitive data so the application specific configuration information has not been set. 
+
+6. To make sure the container as is works, let's inject the credentials via environment variables. Restart the container but with slightly different parameters. (This approach is not recommended for production accounts)
+
+    podman stop pbw-app
+
+    podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password="db2password" -e Dmgr01Node_DB2INST1_user="db2inst1" --name pbw-app  apps/pbw 
+
+7.  From the browser, access the PlantsByWebSphere application that is running in the local container:
+
+    http://localhost:9080/PlantsByWebSphere
+ 
+     ![PBW](./images/media/image61.png)
+ 
+    
+    Attempt to click on any of the tabs: “**Flowers**”, **Fruits & Vegetables**”, or “**Trees**”.
+
+    This time it should work without any issue.
+
+8. Finally stop the container
+
+        podman stop pbw-app
+
+
     ___
 
 **Considerations & recommendations:**
@@ -761,12 +784,6 @@ ___
 
 
 In the next section we will look at how the `migration plan` helps you manage this configuration easily across all your environments and how it will simplify deployment to your OpenShift cluster. The migration plan uses `Kustomize` to help achieve this.
-
-To make sure the container as is works, let's inject the credentials via environment variables.
-
-    podman stop pbw-app
-
-    podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password="db2password" -e Dmgr01Node_DB2INST1_user="db2inst1" --name pbw-app  apps/pbw 
 
 ___
 
