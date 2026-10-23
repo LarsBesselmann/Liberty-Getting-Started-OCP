@@ -644,7 +644,7 @@ This is what we will do now.
         cp ~/Student/wlp/usr/servers/pbwserver/server.xml ~/Student/migrationPlan/src/main/liberty/config
 
 
-        cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/server.xml /home/itzuser/Student/labs/appmod/migration-bundle/src/main/liberty/config 
+        # cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/server.xml /home/itzuser/Student/labs/appmod/migration-bundle/src/main/liberty/config 
 
 
 4.  Modify the "**Containerfile**" to specify a specific version of Liberty to deploy: in this case, **icr.io/appcafe/websphere-liberty:24.0.0.8-kernel-java8-openj9-ubi**
