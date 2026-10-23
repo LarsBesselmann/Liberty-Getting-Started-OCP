@@ -207,7 +207,7 @@ A `workspace` is a designated area that will house the migration recommendations
 
     b.  Type **`Evaluation`** as the Workspace name. Then click the **`Create`** button
 
-     ![A screenshot of a computer Description automatically generated](./images/media/image15.png)
+     ![screenshot](./images/media/image15.png)
 
 2. Upload an existing **'scan results'** file provided for the lab.
 
@@ -266,7 +266,7 @@ A `workspace` is a designated area that will house the migration recommendations
   - No changes to the source code are required
  
    
-![A screenshot of a computer Description automatically generated](./images/media/image20.png)
+![screenshot](./images/media/image20.png)
 
  ***How is this application ready for deployment when it shows 4 issues?***
  
@@ -280,7 +280,7 @@ A `workspace` is a designated area that will house the migration recommendations
 
     a. Click on the **`Migration plan`** link at the end of the row of the **plantsbywebsphereee6.ear** application.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image21.png)
+    ![screenshot](./images/media/image21.png)
 
     b.  The **Migration Plan** page opens.
 
@@ -306,7 +306,7 @@ A `workspace` is a designated area that will house the migration recommendations
 
 3.  Download the migration plan by clicking the **`Download plan`** button in the bottom right. 
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image24.png)
+    ![screenshot](./images/media/image24.png)
     A zip file named “**plantsbywebsphereee6.ear_migrationPlan.zip**” will download to your **Download** folder.
 
 
@@ -361,7 +361,7 @@ Then, you will review the migration bundle to see what files you need to add, an
 
 4.  Confirm the local WebSphere Liberty server is running. Open the `Firefox` web browser, open a new browser tab. Then go to: **http://localhost:9080**
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image25.png)
+    ![screenshot](./images/media/image25.png)
 
 
 5.  From the **Terminal** window, stop the local WebSphere Liberty server.
@@ -460,14 +460,20 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
 
         echo "JAVA_HOME=/usr/lib/jvm/ibm-semeru-open-8-jdk" >> ~/Student/wlp/usr/servers/pbwserver/server.env
  
-    ___
+8. Configure Liberty to use JPA 2.0 instead of JPA 2.1. 
 
-    Now that the PlantsByWebSphere binary and its configuration are added to the Liberty server, the application is ready to be run form the web browser.     
-    ___
+        sed -i 's/jpa-2.1/jpa-2.0/g' /home/itzuser/Student/wlp/usr/servers/pbwserver/server.xml
+    
 
-8. Install the missing Liberty features reequired to run the application
+9. Install the missing Liberty features reequired to run the application
 
         ~/Student/wlp/bin/featureUtility installServerFeatures pbwserver
+
+
+    ___
+
+    Now that the PlantsByWebSphere binary and its configuration are added to the Liberty server, the application is ready to be run from the web browser.     
+    ___
 
 9. Start the Liberty server
 
@@ -514,7 +520,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     - **Section 1** contains the `features` that the application requires, and these are discovered automatically during analysis performed by the Application Modernization Accelerator **Data Collector**.
 
-      ![A screenshot of a computer Description automatically generated](./images/media/image38.png)
+      ![FeatureManager](./images/media/image38.png)
 
     - **Section 2:** Defines the `resources` required to access the database
 
@@ -522,22 +528,22 @@ The **server.xml** file defines a set of **`features`** that the application req
 
       - The **`jdbc`** driver defines the required libraries. These are the libraries you copied into this location via the script
 
-      ![A computer code with green and white text Description automatically generated](./images/media/image39.png)
+      ![database resources](./images/media/image39.png)
 
     - **Section 3:** The **`datasource`** contains all the information required to access the database: Database user, password, database name, host, and port number.
 
-      ![A computer screen shot of a program Description automatically generated](./images/media/image40.png)
+      ![datasource](./images/media/image40.png)
 
 
     - **Section 4** contains the variables for the **`non-sensitive configuration data`**. For example, the port to run the server on. The values of these variables are collected by Application Modernization Accelerator.
 
-      ![A screen shot of a computer code Description automatically generated](./images/media/image41.png)
+      ![non-sensitive config data](./images/media/image41.png)
 
     - **Section 5** contains the **`sensitive data variables`**. 
     
       You can see that the values for these variables are all **blank**, as this information is **never** collected by Application Modernization Accelerator.
 
-      ![A screenshot of a computer program Description automatically generated](./images/media/image42.png)
+      ![sensitive config data](./images/media/image42.png)
 
 
 2.  The reason that the **PlantsByWebSphere** application returned an “Exception” is because the values for the **sensitive variables** has not been set - neither in the server.xml nor in the environment. 
@@ -571,7 +577,6 @@ The **server.xml** file defines a set of **`features`** that the application req
 
         sed -i 's/vm-1/desktop-2/g' /home/itzuser/Student/wlp/usr/servers/pbwserver/server.xml
 
-
 3. From a Terminal window, `start` the Liberty server named ‘pbwserver”
 
         ~/Student/wlp/bin/server start pbwserver
@@ -584,7 +589,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     a. Click the “**Flowers**” tab. The catalog of flowers should now be displayed.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image45.png)
+    ![PBW Flowers](./images/media/image45.png)
 
 
 3. From a **Terminal** window, `Stop` the Liberty server named ‘**pbwserver**”
@@ -637,7 +642,7 @@ This is what we will do now.
 
 5. The `migration bundle` is ready to be used to generate an image of your application running on WebSphere Liberty. To do this, we will use the **`Containerfile`** that comes with the migration bundle.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image49a.png)
+    ![screenshot](./images/media/image49a.png)
 
     a. Explore the Containerfile in the migration bundle
 
@@ -986,7 +991,7 @@ You must specify which overlay will provide the configuration (dev in this case)
 
     This catalog of trees was retrieved from the DB2 database in the `dev` configuration.
  
-    ![A screenshot of a computer Description automatically generated](./images/media/image79.png)
+    ![screenshot](./images/media/image79.png)
 
 
 
@@ -1016,7 +1021,7 @@ In this section, you will take a look at the **WebSphere Liberty Operator** in t
 
     d.  Click on **`IBM WebSphere Liberty`**
 
-    ![A screenshot of a computer Description automatically generated](./images/media/installed-operators-apps-pbw.png)
+    ![screenshot](./images/media/installed-operators-apps-pbw.png)
 
 
 3. View the **WebSphereLibertyApplication** `Deployment`
@@ -1029,44 +1034,44 @@ In this section, you will take a look at the **WebSphere Liberty Operator** in t
 
     b. Click on the link called **`plantsbywebsphereee6`** under the **Name** column
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image88a.png)
+    ![screenshot](./images/media/image88a.png)
 
     c.  Select the **`Resources`** tab
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image89a.png)
+    ![screenshot](./images/media/image89a.png)
 
     d. Select the link for the **`Deployment`**
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image90a.png)
+    ![screenshot](./images/media/image90a.png)
 
     e. The PlantsByWebSphere deployment has one `pod` running
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image91a.png)
+    ![screenshot](./images/media/image91a.png)
 
 
 4.  View the WebSphereLibertyApplication **`Route`**
 
     a.  Return to the **plantsbywebsphereee6 operator** page
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image92a.png)
+    ![screenshot](./images/media/image92a.png)
 
     b.  Click the **`Resources`** tab
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image92b.png)
+    ![screenshot](./images/media/image92b.png)
 
     c.  Select the link of **Kind: `route`**
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image93a.png)
+    ![screenshot](./images/media/image93a.png)
 
     d.  Click on the **`Location`** link for the route
 
          http://plantsbywebsphereee6-apps-pbw.apps.ocp.ibm.edu
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image94a.png)
+    ![screenshot](./images/media/image94a.png)
 
     e.  The **Welcome to Liberty** page is displayed in a new Browser tab. 
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image95.png)
+    ![screenshot](./images/media/image95.png)
 
     f.  Append the context root ‘**PlantsByWebSphere’** to access the PlantsByWebSphere application
 
@@ -1146,7 +1151,7 @@ In this section, we will deploy the same application again with a new configurat
     ___
     For reference, this catalog of trees was retrieved from the `dev` database. Notice the name of the trees are different. 
  
-    ![A screenshot of a computer Description automatically generated](./images/media/image79.png)
+    ![screenshot](./images/media/image79.png)
 
  
 # Summary
@@ -1230,7 +1235,7 @@ IBM Cloud Application Modernization Accelerator (TA) analyzes application and co
  
 TA provides recommendations for modernization which includes and considers application complexity, dependencies, potential issues, and estimated development effort.
  
-![A screenshot of a computer Description automatically generated](./images/media/image106.png)
+![screenshot](./images/media/image106.png)
 
 1. In a browser window, return to Application Modernization Accelerator using the following URL: 
 
@@ -1271,7 +1276,7 @@ This workspace has only a single application name `plantsbywebsphereee6.ear`. It
 
 4. Click on **plantsByWebSphereee6.ear** which will expand the analysis
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image108.png)
+    ![screenshot](./images/media/image108.png)
 
     a. Scroll down, noting the groups or categories of analysis available
     
@@ -1304,11 +1309,11 @@ This workspace has only a single application name `plantsbywebsphereee6.ear`. It
 
     a.  Click on the **`Analysis report`** link. 
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image109.png)
+    ![screenshot](./images/media/image109.png)
 
     b. The **Analysis report** will open in a new browser tab
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image110.png)
+    ![screenshot](./images/media/image110.png)
  
 
     c.  Note the **target**
@@ -1323,18 +1328,18 @@ This workspace has only a single application name `plantsbywebsphereee6.ear`. It
 
     d.  Click on the **`Information`** label, to review the details of this item.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image112.png)
+    ![screenshot](./images/media/image112.png)
  
     The **Information** rules provide migration related considerations. Be aware of these rules during testing. Many of these rules relate to connectivity to other resources that need to be considered during migration.
 
     e.  You may review the Information rules for PlantsByWebSphere migration.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image113.png)
+    ![screenshot](./images/media/image113.png)
 
 
 6.  Return to the **Cloud Application Modernization Accelerator** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Inventory Report`**, which will open in a new browser tab.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image114.png)
+    ![screenshot](./images/media/image114.png)
 
     a.  Scroll down and review the Inventory Report, which is especially useful in larger applications.
 
@@ -1348,17 +1353,17 @@ This workspace has only a single application name `plantsbywebsphereee6.ear`. It
 
     c.  Notice the PlantsByWebSphere application contains utility jar named **‘pbw-lib’jar**’. The archive package is “ibm.com.websphere’, indicating it is NOT a 3<sup>rd</sup> party utility jar.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image116.png)
+    ![screenshot](./images/media/image116.png)
 
     d.  Return to the **Cloud Application Modernization Accelerator** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Technology report`**, which will open in a new browser tab.
 
     The **Technology report** provides details on which editions of Liberty support the technologies used by the applications.
  
-    ![A screenshot of a computer Description automatically generated](./images/media/image117.png)
+    ![screenshot](./images/media/image117.png)
 
     a.  Scroll down the Technology Report, which can quickly help assess which Java EE API technologies that the PlantsByWebSphere application uses, and which editions of Liberty the APIs are available.
 
-    ![A screenshot of a computer Description automatically generated](./images/media/image118.png)
+    ![screenshot](./images/media/image118.png)
 
     b. As you see from the report above, the APIs used in the PlantsByWebSphere application are available in ALL editions of Liberty.
 
