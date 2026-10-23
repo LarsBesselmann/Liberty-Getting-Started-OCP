@@ -564,7 +564,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     a. Scroll to the bottom of the `server.xml` file to view the sensitive-data variables. 
 
-    b.  Set the default value for **Dmgr01Node_DB2INST1_password** to: **`dbpassword`**
+    b.  Set the default value for **Dmgr01Node_DB2INST1_password** to: **`db2password`**
     
     c. Set the default value for **Dmgr01Node_DB2INST1_user** to: **`db2inst1`**
 
@@ -766,7 +766,7 @@ To make sure the container as is works, let's inject the credentials via environ
 
     podman stop pbw-app
 
-    podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password="dbpassword" -e Dmgr01Node_DB2INST1_user="db2inst1" --name pbw-app  apps/pbw 
+    podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password="db2password" -e Dmgr01Node_DB2INST1_user="db2inst1" --name pbw-app  apps/pbw 
 
 ___
 
