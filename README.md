@@ -691,7 +691,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
 1.	Build the container image from the migration plan using docker
 
-        cd ~/Student//migrationPlan
+        cd ~/Student/migrationPlan
 
         podman build -f Containerfile --tag apps/pbw .
 
@@ -708,7 +708,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
 4. Confirm the container image has been built
 
-        docker images | grep apps/pbw
+        podman images | grep apps/pbw
 
 
     ![](./images/media/pbw-image-listed.png)
@@ -716,7 +716,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
 5.	The next step is to run the image using the `docker run`command.
 
-        docker run -d --rm -p 9080:9080 --name pbw-app  apps/pbw
+        podman run -d --rm -p 9080:9080 --name pbw-app  apps/pbw
 
     -  `-d` start the container in 'detached' mode so you get your command prompt back
     -  `--rm` remove the container when it is stopped
