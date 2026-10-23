@@ -761,6 +761,15 @@ ___
 
 
 In the next section we will look at how the `migration plan` helps you manage this configuration easily across all your environments and how it will simplify deployment to your OpenShift cluster. The migration plan uses `Kustomize` to help achieve this.
+
+To make sure the container as is works, let's inject the credentials via environment variables.
+
+podman stop pbw-app
+podman rm pbw-app
+
+podman run -d --rm -p 9080:9080 --name pbw-app  apps/pbw -e 
+rhel9_baseNode01_pbwuser_password=dbpassword -e rhel9_baseNode01_pbwuser_user=db2inst1
+
 ___
 
 
@@ -773,6 +782,12 @@ By using **`overlays`**, it allows you to break out your basic configuration inf
 
 Every **kustomize** artifact is plain `YAML` and can be validated and processed in a standardized way. Plus, it makes them very human readable\! It is natively built into **kubectl** and the **OpenShift client**.
 
+Take a look at the kustomize folder structure in the migration plan:
+
+    tree ~/Student/migrationPlan/deploy/kustomize/
+
+  > ![](./images/media/kustomize.png)
+ 
 
 The structure of the kustomize folder is as follows.
 
@@ -780,8 +795,6 @@ The structure of the kustomize folder is as follows.
 
   2.	`overlays` contains all your different deployment configurations. In this case, only a single deployment has been created for your `dev` systems. The `secret` file will contain all your application-specific **sensitive data** that will be created as secrets in OpenShift.
 
-  > ![](./images/media/image64a.png)
- 
 ___
 
 **Note:** In the next section we will use this kustomize structure to deploy your application image.
@@ -793,7 +806,7 @@ ___
 
 ## 4 Deploy to OpenShift with config
 
-You have now created a a container image without any application specific configuration. In this section, we will **push** that image to an image repository and then **deploy** it into OpenShift, along with its configuration, with a single command.
+You have now created a container image without any application specific configuration. In this section, we will **push** that image to an image repository and then **deploy** it into OpenShift, along with its configuration, with a single command.
 
 ### 4.1 Update the Kustomize structure to move the configmap configuration to the overlays folder
 
