@@ -652,13 +652,12 @@ This is what we will do now.
         sed -i 's/websphere-liberty:25.0.0.6-kernel-java8-openj9-ubi/websphere-liberty:26.0.0.6-kernel-java8-openj9-ubi/g' /home/itzuser/Student/migrationPlan/Containerfile
 
 
-5. The `migration bundle` is ready to be used to generate an image of your application running on WebSphere Liberty. To do this, we will use the **`Containerfile`** that comes with the migration bundle.
+5. The `migration plan` is ready to be used to generate an image of your application running on WebSphere Liberty. To do this, we will use the **`Containerfile`** that comes with the migration plan.
 
-    ![screenshot](./images/media/image49a.png)
 
-    a. Explore the Containerfile in the migration bundle
+    a. Explore the Containerfile in the migration plan
 
-        gedit /home/itzuser/Student/labs/appmod/migration-bundle/Containerfile
+        gedit /home/itzuser/Student/migrationPlan/Containerfile
  
  
     - The **FROM** statements in the **Containerfile** pull in the following two images. 
@@ -673,7 +672,7 @@ This is what we will do now.
        
     - The **RUN** commands in the Containerfile create the necessary folder structures and copies the **`binary files`** from the migration bundle into the appropriate locations in the image.
 
-      ![A close-up of a computer code Description automatically generated](./images/media/image52.png)
+      ![Containerfile-RUN](./images/media/image52.png)
 
     - There are several lines in the file that have been commented out. 
     
