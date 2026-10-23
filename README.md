@@ -727,9 +727,9 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
 
 
-7.  From the browser, access the PlantsByWebSphere application that is running in the local container
+7.  From the browser, access the PlantsByWebSphere application that is running in the local container:
 
-        http://localhost:9080/PlantsByWebSphere
+    http://localhost:9080/PlantsByWebSphere
  
      ![A screenshot of a web page Description automatically generated](./images/media/image61.png)
  
