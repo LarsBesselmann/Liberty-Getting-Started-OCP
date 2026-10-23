@@ -639,12 +639,10 @@ This is what we will do now.
 
         rm ~/Student/migrationPlan/src/main/liberty/lib/*.placeholder
 
-3.	Update the server.xml file to remove the TLS configuration which is not used. 
+3.	Update the server.xml file as before to adjust the database endpoint and JPA spec. 
 
-        cp ~/Student/wlp/usr/servers/pbwserver/server.xml ~/Student/migrationPlan/src/main/liberty/config
-
-
-        # cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/server.xml /home/itzuser/Student/labs/appmod/migration-plan/src/main/liberty/config 
+        sed -i 's/vm-1/desktop-2/g' /Student/migrationPlan/src/main/liberty/config/server.xml
+        sed -i 's/jpa-2.1/jpa-2.0/g' /Student/migrationPlan/src/main/liberty/config/server.xml
 
 
 4.  Modify the "**Containerfile**" to specify a specific version of Liberty to deploy: in this case, **icr.io/appcafe/websphere-liberty:24.0.0.8-kernel-java8-openj9-ubi**
