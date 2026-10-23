@@ -586,8 +586,17 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     http://localhost:9080/PlantsByWebSphere
 
+    Before we can fully test the application, we need to initialize the database.
 
-    a. Click the “**Flowers**” tab. The catalog of flowers should now be displayed.
+    a. Click on Help to get the help panel
+
+    ![PBW Help](./images/media/pbw-help.png)
+    
+    b. Click on the **Reset database** button to reset the database.
+
+    ![PBW Reset Database](./images/media/pbw-reset-database.png)
+
+    c. Back on the main page, click the “**Flowers**” tab. The catalog of flowers should now be displayed.
 
     ![PBW Flowers](./images/media/image45.png)
 
@@ -599,7 +608,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
 ### Checkpoint
 
-At this point in the lab, you have successfully demonstrated the PlantsByWebSphere application runs successfully in WebSPhere Liberty on a local VM. 
+At this point in the lab, you have successfully demonstrated the PlantsByWebSphere application runs successfully in WebSphere Liberty on a local VM. 
 
 In the next sections, you will deploy the PlantsByWebSphere application to containers and Red Hat OpenShift. 
 
