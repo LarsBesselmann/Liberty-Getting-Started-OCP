@@ -15,7 +15,7 @@ This lab provides fundamental hands-on experience with modernizing existing Java
 
 The focus of this lab is on the practical aspects of application deployment and configurations and not the analysis of the Application Modernization Accelerator results. *Other labs cover Application Modernization Accelerator in detail.*
 
-Upon completion of this lab, you will have gained skills to download and use the `Application Modernization Accelerator migration bundle` to deploy and configure your application in the following scenarios: 
+Upon completion of this lab, you will have gained skills to download and use the `Application Modernization Accelerator migration plan` to deploy and configure your application in the following scenarios: 
 
 1.  **to a locally running WebSphere Liberty** - useful for deploying to Liberty in a VM
 
@@ -45,11 +45,11 @@ Additionally, the tool provides a recommendation for the right-fit IBM WebSphere
 
 The objectives of this lab are to:
 
-  - Learn how to download the application migration bundle and use it to deploy an application to WebSphere Liberty running locally
+  - Learn how to download the application migration plan and use it to deploy an application to WebSphere Liberty running locally
 
-  - Learn how to fully populate the migration bundle placeholders and build the application into a container image
+  - Learn how to fully populate the migration plan placeholders and build the application into a container image
 
-  - Learn the role of Kustomize when deploying the migration bundle
+  - Learn the role of Kustomize when deploying the migration plan
 
   - Learn how to deploy your application to OpenShift with a single command
 
@@ -82,7 +82,7 @@ The lab environment contains six (6) Linux VMs.
 
 In this lab, you will use the Application Modernization Accelerator `migration plan` to build a container image and deploy an application to a local container for testing.
 
-To simplify the lab and to allow you to focus on the migration bundle, certain software and artifacts have already been put in place for you. These are as follows:
+To simplify the lab and to allow you to focus on the migration plan, certain software and artifacts have already been put in place for you. These are as follows:
 
   - **Application Modernization Accelerator** has been installed and collected data has been loaded
 
@@ -149,9 +149,9 @@ To simplify the lab and to allow you to focus on the migration bundle, certain s
 
 ## 1.1 Launch Application Modernization Accelerator (local)
 
-Application Modernization Accelerator provides a **`migration plan`** for each application being assessed for modernization. The migration plan includes a **`migration bundle`** of generated artifacts that accelerate the deployment of applications to Liberty in containers and Kubernetes / OpenShift.
+Application Modernization Accelerator provides a **`migration plan`** for each application being assessed for modernization. The migration plan includes a **`migration plan`** of generated artifacts that accelerate the deployment of applications to Liberty in containers and Kubernetes / OpenShift.
 
-The migration bundle includes diverse artifacts, depending on the needs of the application to accelerate the build and deployment of an application Container image into an OpenShift container platform.
+The migration plan includes diverse artifacts, depending on the needs of the application to accelerate the build and deployment of an application Container image into an OpenShift container platform.
 
 The Application Modernization Accelerator is installed locally on the **Workstation** VM. 
 
@@ -290,7 +290,7 @@ A `workspace` is a designated area that will house the migration recommendations
 
     - a list of the application’s dependencies.
 
-    All the files can be downloaded in a single convenient **migration bundle**.
+    All the files can be downloaded in a single convenient **migration plan**.
 
     ![](./images/media/image22.png)
 
@@ -311,7 +311,7 @@ A `workspace` is a designated area that will house the migration recommendations
 
 
 
-We will go through a step-by-step process of using the Application Modernization Accelerator migration bundle to deploy **plantsbywebsphereee6.ear** as follows:
+We will go through a step-by-step process of using the Application Modernization Accelerator migration plan to deploy **plantsbywebsphereee6.ear** as follows:
 
   1. Ensure the application can run locally on WebSphere Liberty
 
@@ -325,7 +325,7 @@ We will go through a step-by-step process of using the Application Modernization
 
 In this step, you will create a new Liberty server to run the PlantsByWebSphere application.
 
-Then, you will review the migration bundle to see what files you need to add, and use the provided `server.xml` Liberty configuration file. This file is used to configure Liberty by providing values for ports, security, context routes and by providing application-specific configuration. 
+Then, you will review the migration plan to see what files you need to add, and use the provided `server.xml` Liberty configuration file. This file is used to configure Liberty by providing values for ports, security, context routes and by providing application-specific configuration. 
 
 ### 2.1   Create a local Liberty Server
 
@@ -378,17 +378,17 @@ Then, you will review the migration bundle to see what files you need to add, an
 
 
 
-### 2.1.3 Review the placeholder files in the migration bundle
+### 2.1.3 Review the placeholder files in the migration plan
 
-In this section, you will review the migration bundle to see what files need to be added to the WebSphere Liberty configuration to run the application. 
+In this section, you will review the migration plan to see what files need to be added to the WebSphere Liberty configuration to run the application. 
 
-1.  Let’s make note of the 3 `placeholder files` that are placed in the `migration bundle`.
+1.  Let’s make note of the 3 `placeholder files` that are placed in the `migration plan`.
 
     The placeholder files are convenient references to let you know which files you will need to copy to the **Liberty server**.
  
-    *Note: You will fully populate the migration bundle in later steps*.
+    *Note: You will fully populate the migration plan in later steps*.
 
-    a.  From the **Terminal window**, list the placeholder files in the migration bundle.
+    a.  From the **Terminal window**, list the placeholder files in the migration plan.
 
         unzip -l ~/Downloads/plantsbywebsphereee6.ear_migrationPlan.zip | grep placeholder
  
@@ -402,18 +402,18 @@ In this section, you will review the migration bundle to see what files need to 
 
 ### 2.1.4   Configure the Liberty server for PlantsByWebSphere
 
-In this section, extract the migration bundle that you downloaded. Then, copy the required dependency files and server configuration to the Liberty server.
+In this section, extract the migration plan that you downloaded. Then, copy the required dependency files and server configuration to the Liberty server.
 
-  - Extract the **migration bundle** to a new directory
+  - Extract the **migration plan** to a new directory
 
   - Copy the **DB2 libraries** to the directory defined in the "DB2 driver configuration" in the server.xml file.
 
   - Copy the **PlantsByWebSphere EAR** file to the “apps” directory of the Liberty server
 
-  - Copy the **server.xml** file from the migration bundle to the Liberty server, replacing the default server.xml file
+  - Copy the **server.xml** file from the migration plan to the Liberty server, replacing the default server.xml file
 
 
-1. Extract the migration bundle that you downloaded
+1. Extract the migration plan that you downloaded
 
         mkdir ~/Student/migrationPlan
         cd ~/Student/migrationPlan
@@ -421,7 +421,7 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
         unzip plantsbywebsphereee6.ear_migrationPlan.zip
 
 
-2. List the directory of the extracted migration bundle
+2. List the directory of the extracted migration plan
 
         ls -l        
 
@@ -450,7 +450,7 @@ In this section, extract the migration bundle that you downloaded. Then, copy th
 
 
 
-6.	Copy the `server.xml` file from the migration bundle into the Liberty server to replace its existing configuration. Choose to overwrite the existing file if prompted.
+6.	Copy the `server.xml` file from the migration plan into the Liberty server to replace its existing configuration. Choose to overwrite the existing file if prompted.
 
         cp ~/Student/migrationPlan/src/main/liberty/config/server.xml ~/Student/wlp/usr/servers/pbwserver 
 
@@ -619,21 +619,21 @@ In the next sections, you will deploy the PlantsByWebSphere application to conta
 
 In the previous section, you used the **server.xml** to get the  application running on a `local Liberty instance`. This was to show you how the Application Modernization Accelerator **server.xml** file is used. If you are moving to Liberty in VMs as your new runtime, then you are done! 
 
-However. if containers are to be your final destination, this section explores the Application Modernization Accelerator migration bundle artifacts that accelerate application deployment to Liberty in containers. 
+However. if containers are to be your final destination, this section explores the Application Modernization Accelerator migration plan artifacts that accelerate application deployment to Liberty in containers. 
 
-In the case of **`Simple`** applications, it is not necessary to carry out a separate step of deploying to a local Liberty instance at all. Instead, by using the Application Modernization Accelerator migration bundle, you can deploy your application to **Liberty running in a container** all in one go. 
+In the case of **`Simple`** applications, it is not necessary to carry out a separate step of deploying to a local Liberty instance at all. Instead, by using the Application Modernization Accelerator migration plan, you can deploy your application to **Liberty running in a container** all in one go. 
 
 This is what we will do now.
 
 
-1.	Add the PlantsByWebSphere binary file to your migration bundle, and remove the placeholder.
+1.	Add the PlantsByWebSphere binary file to your migration plan, and remove the placeholder.
 
         cp ~/Student/plantsbywebsphereee6.ear ~/Student/migrationPlan/target
 
         rm ~/Student/migrationPlan/target/plantsbywebsphereee6.ear.placeholder
 
 
-2.	Add the db2 library files to your migration bundle, and remove the placeholder.
+2.	Add the db2 library files to your migration plan, and remove the placeholder.
 
         cp ~/Student/db2_drivers/* ~/Student/migrationPlan/src/main/liberty/lib  
 
@@ -644,7 +644,7 @@ This is what we will do now.
         cp ~/Student/wlp/usr/servers/pbwserver/server.xml ~/Student/migrationPlan/src/main/liberty/config
 
 
-        # cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/server.xml /home/itzuser/Student/labs/appmod/migration-bundle/src/main/liberty/config 
+        # cp /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/server.xml /home/itzuser/Student/labs/appmod/migration-plan/src/main/liberty/config 
 
 
 4.  Modify the "**Containerfile**" to specify a specific version of Liberty to deploy: in this case, **icr.io/appcafe/websphere-liberty:24.0.0.8-kernel-java8-openj9-ubi**
@@ -667,16 +667,16 @@ This is what we will do now.
 
       ![](./images/media/image50.png)
 
-      ![](./images/media/image51a.png)
+      ![](./images/media/image51.png)
 
        
-    - The **RUN** commands in the Containerfile create the necessary folder structures and copies the **`binary files`** from the migration bundle into the appropriate locations in the image.
+    - The **RUN** commands in the Containerfile create the necessary folder structures and copies the **`binary files`** from the migration plan into the appropriate locations in the image.
 
       ![Containerfile-RUN](./images/media/image52.png)
 
     - There are several lines in the file that have been commented out. 
     
-      By default, the **Containerfile** assumes that your application is available as a **binary** file. However, it can also be used to build your application from **source** code. The full details of how to do this can be found in **README.md** in the migration bundle.
+      By default, the **Containerfile** assumes that your application is available as a **binary** file. However, it can also be used to build your application from **source** code. The full details of how to do this can be found in **README.md** in the migration plan.
 
       ![](./images/media/image53.png)
 
@@ -689,15 +689,15 @@ This is what we will do now.
 
 In this section, you will build and run the PlantsByWebSphere application in a local container.
 
-1.	Build the container image from the migration bundle using docker
+1.	Build the container image from the migration plan using docker
 
-        cd /home/itzuser/Student/labs/appmod/migration-bundle
+        cd ~/Student//migrationPlan
 
-        docker build -f /home/itzuser/Student/labs/appmod/migration-bundle/Containerfile --tag apps/pbw .
+        podman build -f Containerfile --tag apps/pbw .
 
     - `-f` is the path to the `Containerfile` used to build the image
     - `--tag` allows you to define the name and version of the image to build
-    - `.` is the "current directory" of the migration bundle that includes the artifacts for building the container image. 
+    - `.` is the "current directory" of the migration plan that includes the artifacts for building the container image. 
 
     **Note:** Ignore the following warning message. This will be fixed in the next release of Transfromation Advisor 
 
@@ -748,7 +748,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
  
     ![](./images/media/pbw-container-db-error.png)
  
-    The error is because we are using the unchanged server.xml file that came with the migration bundle. 
+    The error is because we are using the unchanged server.xml file that came with the migration plan. 
     
     As outlined already, Application Modernization Accelerator does not collect any sensitive data so the application specific configuration information has not been set. 
     ___
@@ -768,12 +768,12 @@ ___
 **It is never best practice to hard code configuration into your image.** 
 
 
-In the next section we will look at how the `migration bundle` helps you manage this configuration easily across all your environments and how it will simplify deployment to your OpenShift cluster. The migration bundle uses `Kustomize` to help achieve this.
+In the next section we will look at how the `migration plan` helps you manage this configuration easily across all your environments and how it will simplify deployment to your OpenShift cluster. The migration plan uses `Kustomize` to help achieve this.
 ___
 
 
 
-## 3.2 Understand how Kustomize is used in the migration bundle
+## 3.2 Understand how Kustomize is used in the migration plan
 
 **`kustomize`** is simple way to manage configuration across all your different deployments and environments without the need for templates.
 
@@ -805,20 +805,20 @@ You have now created a a container image without any application specific config
 
 ### 4.1 Update the Kustomize structure to move the configmap configuration to the overlays folder
 
-It is common to have different application configuration between deployments such as `dev` and `staging`. In this lab, we use different DB2 application databases between the two configurations. For this reason , we want the configMap to be located in the Kustomize `overlays` folder, rather than the `base` where it is placed, by default, in the Application Modernization Accelerator migration bundle. 
+It is common to have different application configuration between deployments such as `dev` and `staging`. In this lab, we use different DB2 application databases between the two configurations. For this reason , we want the configMap to be located in the Kustomize `overlays` folder, rather than the `base` where it is placed, by default, in the Application Modernization Accelerator migration plan. 
 
-For the lab, we have provided the updated file structure for you. You just need to run the commands below to update the migration bundle. 
+For the lab, we have provided the updated file structure for you. You just need to run the commands below to update the migration plan. 
 
 1. Run the following commands to update the Kustomize structure as stated above. 
 
-        rm -rf /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize
+        rm -rf /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize
 
-        cp -r /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/kustomize /home/itzuser/Student/labs/appmod/migration-bundle/deploy/
+        cp -r /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/kustomize /home/itzuser/Student/labs/appmod/migration-plan/deploy/
 
    
     a. List the updated directory structure   
 
-        ls -Rl  /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize
+        ls -Rl  /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize
     
 
     Notice the `plantsbywebspheree6-configmap.yaml` file is now in the `overlays/dev` folder. 
@@ -833,7 +833,7 @@ For the lab, we have provided the updated file structure for you. You just need 
 
 Recall, the container image does not have the application configuration baked in. 
 
-You will make the following updates to the configuration YAML files in the migration bundle for the PlantsByWebSphere application deployment to OpenShift. 
+You will make the following updates to the configuration YAML files in the migration plan for the PlantsByWebSphere application deployment to OpenShift. 
 
   -  Update the `overays/dev/plantsbywebsphereee6-secret.yaml` file
      -  Add the sensitive-data to the **secret** YAML file
@@ -853,9 +853,9 @@ ___
 
 1.	Update the **plantsbywebsphereee6-secret.yaml** file, which contains the sensitive-data for the application. You will copy an updated version of the file that we have prepared for the lab
 
-        cd /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/overlays/dev/
+        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays/dev/
 
-        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/plantsbywebsphereee6-secret.yaml  /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/overlays/dev 
+        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/plantsbywebsphereee6-secret.yaml  /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays/dev 
 
     The update to the `plantsbywebsphereee6-secret.yaml` in the **overlays/dev** directory is now complete. The sensitive data is encoded and added to the yaml file. 
 
@@ -890,9 +890,9 @@ ___
 
 2.	Update the **plantsbywebsphereee6-configmap.yaml** file, which contains the database name and host for the `dev` database
 
-        cd /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/overlays/dev
+        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays/dev
 
-        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/plantsbywebsphereee6-configmap.yaml  /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/overlays/dev
+        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/plantsbywebsphereee6-configmap.yaml  /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays/dev
 
     The update to the `plantsbywebsphereee6-configmap.yaml` in the **overlays/dev** directory is now complete. The database host for the dev database has been added to the yaml file. 
 
@@ -903,9 +903,9 @@ ___
     
     The `application-cr.yaml` is the WebSphere Liberty custom resource used to deploy the PlantsByWebSphere application.
   
-        cd /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/base/
+        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/base/
 
-        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/application-cr.yaml  /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/base 
+        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/application-cr.yaml  /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/base 
 
     The updated `application-cr.yaml` in the **base** directory is now complete. The PlantsByWebSphere application configuration is finalized.  
 
@@ -964,7 +964,7 @@ You must specify which overlay will provide the configuration (dev in this case)
 
 7. Deploy the PlantsByWebSphere application to OpenShift    
 
-        cd /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize
+        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize
 
         oc apply -n apps-pbw -k overlays/dev
 
@@ -1098,7 +1098,7 @@ In this section, we will deploy the same application again with a new configurat
 
 1.	Create a new `overlay` directory called **staging** that will store the new staging configuration, coping the existing dev directory.
 
-        cd /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/overlays
+        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays
 
         cp -r dev staging
 
@@ -1106,7 +1106,7 @@ In this section, we will deploy the same application again with a new configurat
 
     To update, use the command below to copy a completed version of the config map yaml file to the new configuration for the **staging** configuration.  
 
-        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/plantsbywebsphereee6-configmap-staging.yaml  /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize/overlays/staging/plantsbywebsphereee6-configmap.yaml
+        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/plantsbywebsphereee6-configmap-staging.yaml  /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays/staging/plantsbywebsphereee6-configmap.yaml
 
 
     The update to the `plantsbywebsphereee6-configmap.yaml` in the **overays/staging** directory is now complete. The database **serverName** for the **staging** configuration has been added to the configmap yaml file, as illustrated below. 
@@ -1116,7 +1116,7 @@ In this section, we will deploy the same application again with a new configurat
  
 4. From the `kustomize` directory, apply the new `staging` overlay
 
-        cd /home/itzuser/Student/labs/appmod/migration-bundle/deploy/kustomize
+        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize
 
         oc apply -n apps-pbw -k overlays/staging        
 
@@ -1174,7 +1174,7 @@ ___
 
 ___
 
-In this lab, you learned how to deploy applications to WebSphere Liberty using the WebSphere Liberty Operator and the deployment artifacts produced by Application Modernization Accelerator in its migration bundle.
+In this lab, you learned how to deploy applications to WebSphere Liberty using the WebSphere Liberty Operator and the deployment artifacts produced by Application Modernization Accelerator in its migration plan.
 
 You explored the options for deployment: 
 
@@ -1229,7 +1229,7 @@ There are generally two approaches you can take to tackle this, encrypt the valu
 
   - **Use a reference**: In this case, the secrets and their values are stored in a secret manager. During deployment, a reference is provided to the secret manager which will then mount the secret to the deployed container. `HashiCorp Vault` is a common implementation of this approach.
 
-In both cases, there is additional work to be done above what has been covered in this lab. However, the kustomize files provided in the migration bundle gives you a good starting point to identify the secrets and provide a standard output that can be transformed to suit your selected approach.
+In both cases, there is additional work to be done above what has been covered in this lab. However, the kustomize files provided in the migration plan gives you a good starting point to identify the secrets and provide a standard output that can be transformed to suit your selected approach.
 
 </details>
 
