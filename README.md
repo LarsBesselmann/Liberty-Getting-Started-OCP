@@ -564,9 +564,9 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     a. Scroll to the bottom of the `server.xml` file to view the sensitive-data variables. 
 
-    b.  Set the default value for **rhel9_baseNode01_pbwuser_password** to: **`dbpassword`**
+    b.  Set the default value for **Dmgr01Node_DB2INST1_password** to: **`dbpassword`**
     
-    c. Set the default value for **rhel9_baseNode01_pbwuser_user** to: **`db2inst1`**
+    c. Set the default value for **Dmgr01Node_DB2INST1_user** to: **`db2inst1`**
 
      ![](./images/media/image44.png)
     
@@ -765,9 +765,10 @@ In the next section we will look at how the `migration plan` helps you manage th
 To make sure the container as is works, let's inject the credentials via environment variables.
 
     podman stop pbw-app
-    podman rm pbw-app
 
-    podman run -d --rm -p 9080:9080 -e rhel9_baseNode01_pbwuser_password=dbpassword -e rhel9_baseNode01_pbwuser_user=db2inst1 --name pbw-app  apps/pbw 
+    podman run -d --rm -p 9080:9080 -e 
+    Dmgr01Node_DB2INST1_password=dbpassword -e 
+    Dmgr01Node_DB2INST1_user=db2inst1 --name pbw-app  apps/pbw 
 
 ___
 
