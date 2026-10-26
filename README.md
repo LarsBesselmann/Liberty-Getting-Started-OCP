@@ -197,7 +197,7 @@ The Application Modernization Accelerator is installed locally on the **Workstat
 
 ## 1.3 Create new workspace and upload scan results from a WebSphere Application Server
 
-In this section, create a new workspace named **'proof_of_concept'**.
+In this section, create a new workspace named **'Evaluation'**.
 
 A `workspace` is a designated area that will house the migration recommendations provided by Application Modernization Accelerator based on the Data Collector scan results of your application server environment.
 
@@ -307,6 +307,12 @@ A `workspace` is a designated area that will house the migration recommendations
 3.  Download the migration plan by clicking the **`Download plan`** button in the bottom right. 
 
     ![screenshot](./images/media/image24.png)
+
+    If you get a security warning, accept the risk and continue.
+    
+    ![screenshot](./images/media/image24_alert.png)
+    
+
     A zip file named “**plantsbywebsphereee6.ear_migrationPlan.zip**” will download to your **Download** folder.
 
 
