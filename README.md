@@ -1186,7 +1186,7 @@ You must specify which overlay will provide the configuration (dev in this case)
 
 
 
-##  4.4 Explore the WebSphere Liberty Operator in OpenShift - To be done
+##  4.4 Explore the WebSphere Liberty Operator in OpenShift
 
 In this section, you will take a look at the **WebSphere Liberty Operator** in the OpenShift console to see what has been deployed.
 
@@ -1282,81 +1282,39 @@ In this section, you will take a look at the **WebSphere Liberty Operator** in t
       https://plantsbywebsphereee6-apps-pbw.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/PlantsByWebSphere
 
 
-## 4.5 Re-deploy app with different configuration to OpenShift
+## 4.5 Re-deploy app with different configuration to OpenShift  - To be done
 
 We have deployed the PlantsByWebSphere application with its configuration to `dev`, using a single kustomize command. 
 
-In this section, we will deploy the same application again with a new configuration for `staging`, again using a single kustomize command.
+In this section, we will explain how to deploy the same application again with a new configuration for `staging`, again using a single kustomize command. But as there is no second database deployed, this is a read-only task.
 
 
 1.	Create a new `overlay` directory called **staging** that will store the new staging configuration, coping the existing dev directory.
 
-        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays
+        cd ~/Student/labs/appmod/migration-plan/deploy/kustomize/overlays
 
         cp -r dev staging
 
 2.	Update the **plantsbywebsphereee6-configmap.yaml** file, which contains the database name and host for the **staging** configuration.
 
-    To update, use the command below to copy a completed version of the config map yaml file to the new configuration for the **staging** configuration.  
-
-        cp  /home/itzuser/appmod-pot-labfiles/labs/RuntimeModernization/lab_2161-1/deploy-config-updates/apps-pbw/plantsbywebsphereee6-configmap-staging.yaml  /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize/overlays/staging/plantsbywebsphereee6-configmap.yaml
-
-
-    The update to the `plantsbywebsphereee6-configmap.yaml` in the **overays/staging** directory is now complete. The database **serverName** for the **staging** configuration has been added to the configmap yaml file, as illustrated below. 
-
-    ![](./images/media/staging-db-servername.png)
-
+    As there is no staging database deployed, there is nothing to change here.
  
-4. From the `kustomize` directory, apply the new `staging` overlay
+3. From the `kustomize` directory, apply the new `staging` overlay
 
-        cd /home/itzuser/Student/labs/appmod/migration-plan/deploy/kustomize
+        cd ~/Student/labs/appmod/migration-plan/deploy/kustomize
 
-        oc apply -n apps-pbw -k overlays/staging        
+        oc apply -n apps-pbw -k overlays/staging
 
     **Note:** that the configmap and secret were `configured`,  but the application is `unchanged`, as illustrated below.  
 
-        configmap/plantsbywebsphereee6-config configured
-        secret/plantsbywebsphereee6-secret configured
-        webspherelibertyapplication.liberty.websphere.ibm.com/plantsbywebsphereee6 unchanged
-
-5. Restart the PlantsByWebSphere application, to work around a bug in the PlantsByWebSphere app.
-
-        oc delete -n apps-pbw pod $(oc get pod -o template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
-
-6. Ensure the pod has restarted
+4. Ensure the pod has restarted
 
         oc get pods -n apps-pbw
 
-    The **STATUS** State should be `Running`
 
+5. From the browser, navigate to the PlantsByWebSphere route for the application
 
-        NAME                                    READY   STATUS    
-        plantsbywebsphereee6-6d8979cc99-hj4fg   1/1     Running   
-
-
-7. From the browser, navigate to the PlantsByWebSphere route for the application:
-
-        http://plantsbywebsphereee6-apps-pbw.apps.ocp.ibm.edu/PlantsByWebSphere
  
-    The PlantsByWebSphere main page is displayed.
-
-    ![A website page of a garden Description automatically generated](./images/media/image78a.png)
-
-
-    a. Click on the `Home` link on the application main page
-
-    ![](./images/media/home-link.png)
-
-
-    b. Click on the **`Trees`** category and view the trees that are loaded in the `staging` database.
-
-    ![](./images/media/staging-db-trees.png)
-
-    ___
-    For reference, this catalog of trees was retrieved from the `dev` database. Notice the name of the trees are different. 
- 
-    ![screenshot](./images/media/image79.png)
-
  
 # Summary
 
