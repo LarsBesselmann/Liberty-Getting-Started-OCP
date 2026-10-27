@@ -747,7 +747,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
     ___
 
-    **Note the exception.** This is an expected erorr. The issue is in the JPA persistence (Database access). A user is not defined, and therefore authentication to the database failed.
+    **Note the exception.** This is an expected error. The issue is in the JPA persistence (Database access). A user is not defined, and therefore authentication to the database failed.
  
     ![](./images/media/pbw-container-db-error.png)
  
@@ -757,9 +757,9 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
 6. To make sure the container as is works, let's inject the credentials via environment variables. Restart the container but with slightly different parameters. (This approach is not recommended for production accounts)
 
-    podman stop pbw-app
+        podman stop pbw-app
 
-    podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password="db2password" -e Dmgr01Node_DB2INST1_user="db2inst1" --name pbw-app  apps/pbw 
+        podman run -d --rm -p 9080:9080 -e Dmgr01Node_DB2INST1_password="db2password" -e Dmgr01Node_DB2INST1_user="db2inst1" --name pbw-app  apps/pbw 
 
 7.  From the browser, access the PlantsByWebSphere application that is running in the local container:
 
