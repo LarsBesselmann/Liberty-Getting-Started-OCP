@@ -182,6 +182,7 @@ The Application Modernization Accelerator is installed locally on the **Workstat
 
      ![](./images/media/image13a.png)
  
+ 
     f. Accept all cookies
 
      ![](./images/media/image13b.png)
@@ -309,7 +310,7 @@ A `workspace` is a designated area that will house the migration recommendations
     ![screenshot](./images/media/image24.png)
 
     If you get a security warning, accept the risk and continue.
-    
+
     ![screenshot](./images/media/image24_alert.png)
     
 
