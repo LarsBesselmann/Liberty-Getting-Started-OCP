@@ -1172,7 +1172,7 @@ You must specify which overlay will provide the configuration (dev in this case)
 
 10. From the browser, navigate to the PlantsByWebSphere route for the `dev` deployment:
 
-        https://plantsbywebsphereee6-apps-pbw.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/PlantsByWebSphere
+      https://plantsbywebsphereee6-apps-pbw.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/PlantsByWebSphere
  
     The PlantsByWebSphere main page is displayed.
 
