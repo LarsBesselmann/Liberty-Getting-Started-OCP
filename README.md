@@ -851,6 +851,9 @@ For the lab, we have provided the updated file structure for you. You just need 
         cd ~/Student/migrationPlan/deploy/kustomize
         gedit base/kustomization.yaml
 
+    > ![](./images/media/configmap_unchanged.png)
+
+
     Use the following command to review the final file:
 
         cat base/kustomization.yaml
