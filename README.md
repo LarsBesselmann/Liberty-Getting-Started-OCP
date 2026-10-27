@@ -1196,69 +1196,82 @@ In this section, you will take a look at the **WebSphere Liberty Operator** in t
 
     b.  Click on the **`OpenShift Console`** bookmark on the bookmark toolbar
 
-    c.  Login credentials:
+    ![OCP Console Login](./images/media/OCP-Console-Login.png)
+    
+    c.  Log in using your **IBMid**
 
-    - Username: `ocadmin`
+    d. After successful login, you should land on the overview page
 
-    - Password: `ibmrhocp`
+    ![OCP-Console_Overview](./images/media/OCP-Console_Overview.png)
+    
+
+
 
 2.  View the **IBM WebSphere Liberty** `Operator`
 
-    a.  Click on **`Operators > Installed Operators`** in the left-hand menu
+    a.  Click on **`Ecosysytem > Installed Operators`** in the left-hand menu
 
-    b. Select `apps-pbw` in the **Project** filter
+    ![OCP-Console_Liberty-Operator.png](./images/media/OCP-Console_Liberty-Operator.png)
 
-    c. Type **`Liberty`** in the **Name** filter
+    b.  Click on **`IBM WebSphere Liberty`**
 
-    d.  Click on **`IBM WebSphere Liberty`**
+    ![OCP-Console_Liberty-Operator2.png](./images/media/OCP-Console_Liberty-Operator2.png)
 
-    ![screenshot](./images/media/installed-operators-apps-pbw.png)
 
 
 3. View the **WebSphereLibertyApplication** `Deployment`
 
     a.  Click on the tab called **`WebSphereLibertyApplication`**
 
-    ![A green circle with text Description automatically generated](./images/media/image87a.png)
+    ![OCP-Console_Liberty-Operator3.png](./images/media/OCP-Console_Liberty-Operator3.png)
+
 
     b. You will see the **plantsbywebsphereee6** application listed in the ‘dev’ namespace
 
+    ![OCP-Console_Liberty-Application.png](./images/media/OCP-Console_Liberty-Application.png)
+
+    
     b. Click on the link called **`plantsbywebsphereee6`** under the **Name** column
 
-    ![screenshot](./images/media/image88a.png)
+    ![OCP-Console_Liberty-Application2.png](./images/media/OCP-Console_Liberty-Application2.png)
 
     c.  Select the **`Resources`** tab
 
-    ![screenshot](./images/media/image89a.png)
+    ![OCP-Console_Liberty-Application-PBW.png](./images/media/OCP-Console_Liberty-Application-PBW.png)
 
     d. Select the link for the **`Deployment`**
 
-    ![screenshot](./images/media/image90a.png)
+    ![OCP-Console_Liberty-Application-PBW2.png](./images/media/OCP-Console_Liberty-Application-PBW2.png)
+
 
     e. The PlantsByWebSphere deployment has one `pod` running
 
-    ![screenshot](./images/media/image91a.png)
+    ![OCP-Console_Liberty-Application-PBW3.png](./images/media/OCP-Console_Liberty-Application-PBW3.png)
 
 
 4.  View the WebSphereLibertyApplication **`Route`**
 
     a.  Return to the **plantsbywebsphereee6 operator** page
 
-    ![screenshot](./images/media/image92a.png)
+    ![OCP-Console_Liberty-Application-PBW4.png](./images/media/OCP-Console_Liberty-Application-PBW4.png)
+
 
     b.  Click the **`Resources`** tab
 
-    ![screenshot](./images/media/image92b.png)
+    ![OCP-Console_Liberty-Application-PBW5.png](./images/media/OCP-Console_Liberty-Application-PBW5.png)
+
 
     c.  Select the link of **Kind: `route`**
 
-    ![screenshot](./images/media/image93a.png)
+    ![OCP-Console_Liberty-Application-PBW6.png](./images/media/OCP-Console_Liberty-Application-PBW6.png)
+
 
     d.  Click on the **`Location`** link for the route
 
-         http://plantsbywebsphereee6-apps-pbw.apps.ocp.ibm.edu
+       https://plantsbywebsphereee6-apps-pbw.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/ 
 
-    ![screenshot](./images/media/image94a.png)
+    ![OCP-Console_Liberty-Application-PBW7.png](./images/media/OCP-Console_Liberty-Application-PBW7.png)
+
 
     e.  The **Welcome to Liberty** page is displayed in a new Browser tab. 
 
@@ -1266,7 +1279,7 @@ In this section, you will take a look at the **WebSphere Liberty Operator** in t
 
     f.  Append the context root ‘**PlantsByWebSphere’** to access the PlantsByWebSphere application
 
-        http://plantsbywebsphereee6-apps-pbw.apps.ocp.ibm.edu/PlantsByWebSphere
+      https://plantsbywebsphereee6-apps-pbw.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/PlantsByWebSphere
 
 
 ## 4.5 Re-deploy app with different configuration to OpenShift
