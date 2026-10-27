@@ -781,7 +781,7 @@ In this section, you will build and run the PlantsByWebSphere application in a l
 
 **Considerations & recommendations:**
 
-One option here is to update the **server.xml** file, add in the sensitive data values that Application Modernization Accelerator did not collect and rebuild the image. 
+Another option here instead of setting environment variables is to update the **server.xml** file, add in the sensitive data values that Application Modernization Accelerator did not collect and rebuild the image. 
     
 However, a big part of container image value is that they are **`immutable`**. No matter where you take and deploy the image the operating system, runtime, security patch level, etc. will be the same. 
     
@@ -832,26 +832,6 @@ ___
 ## 4 Deploy to OpenShift with config
 
 You have now created a container image without any application specific configuration. In this section, we will **push** that image to an image repository and then **deploy** it into OpenShift, along with its configuration, with a single command.
-
-
-
-# Log in to OCP via your IBM ID
-oc login -w
-
-oc new-project apps-pbw
-
-# Log in to the registry using 
-oc registry login
-Remember returned hostname
-
-oc registry login
-info: Using registry public hostname default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com
-
-
- podman tag apps/pbw default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0
-
-podman push default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0         
-
 
 ### 4.1 Update the Kustomize structure to move the configmap configuration to the overlays folder
 
@@ -1122,7 +1102,7 @@ To deploy the PlantsByWebSphere application to OpenShift, you must perform the f
 
 4. Tag the container image using the following podman command
 
-         podman tag apps/pbw default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0
+        podman tag apps/pbw default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0
 
 5. Verify the image was tagged
 
