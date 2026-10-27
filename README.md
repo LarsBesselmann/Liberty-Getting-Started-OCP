@@ -437,7 +437,7 @@ In this section, extract the migration plan that you downloaded. Then, copy the 
     ![](./images/media/migrationplan_content.png)
  
 
-3.	Copy the PlantsByWebSPhere application binary file into the `apps` location in Liberty
+3.	Copy the PlantsByWebSphere application binary file into the `apps` location in Liberty
 
         cp ~/Student/plantsbywebsphereee6.ear ~/Student/wlp/usr/servers/pbwserver/apps
 
@@ -472,7 +472,7 @@ In this section, extract the migration plan that you downloaded. Then, copy the 
         sed -i 's/jpa-2.1/jpa-2.0/g' /home/itzuser/Student/wlp/usr/servers/pbwserver/server.xml
     
 
-9. Install the missing Liberty features reequired to run the application
+9. Install the missing Liberty features required to run the application
 
         ~/Student/wlp/bin/featureUtility installServerFeatures pbwserver
 
@@ -553,7 +553,7 @@ The **server.xml** file defines a set of **`features`** that the application req
       ![sensitive config data](./images/media/image42.png)
 
 
-2.  The reason that the **PlantsByWebSphere** application returned an “Exception” is because the values for the **sensitive variables** has not been set - neither in the server.xml nor in the environment. 
+2.  The reason that the **PlantsByWebSphere** application returned an “Exception” is because the values for the **sensitive variables** have not been set - neither in the server.xml nor in the environment. 
   
     ![](./images/media/image43.png)
 
@@ -593,7 +593,11 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     http://localhost:9080/PlantsByWebSphere
 
-    Before we can fully test the application, we need to initialize the database.
+    If you would now attempt to click on any of the tabs: “Flowers”, Fruits & Vegetables”, or “Trees”, you would see that the error has gone but you would see another error like this as the database has not been initialized yet..
+
+    ![PBW Error not init](./images/media/pbw_dB_not_initialized.png)
+    
+    Therefore before we can fully test the application, we need to initialize the database.
 
     a. Click on Help to get the help panel
 
