@@ -630,7 +630,7 @@ In the next sections, you will deploy the PlantsByWebSphere application to conta
 
 In the previous section, you used the **server.xml** to get the  application running on a `local Liberty instance`. This was to show you how the Application Modernization Accelerator **server.xml** file is used. If you are moving to Liberty in VMs as your new runtime, then you are done! 
 
-However. if containers are to be your final destination, this section explores the Application Modernization Accelerator migration plan artifacts that accelerate application deployment to Liberty in containers. 
+However if containers are to be your final destination, this section explores the Application Modernization Accelerator migration plan artifacts that accelerate application deployment to Liberty in containers. 
 
 In the case of **`Simple`** applications, it is not necessary to carry out a separate step of deploying to a local Liberty instance at all. Instead, by using the Application Modernization Accelerator migration plan, you can deploy your application to **Liberty running in a container** all in one go. 
 
@@ -656,7 +656,7 @@ This is what we will do now.
         sed -i 's/jpa-2.1/jpa-2.0/g' /home/itzuser/Student/migrationPlan/src/main/liberty/config/server.xml
 
 
-4.  Modify the "**Containerfile**" to specify a specific version of Liberty to deploy: in this case, **icr.io/appcafe/websphere-liberty:24.0.0.8-kernel-java8-openj9-ubi**
+4.  Modify the "**Containerfile**" to specify a specific version of Liberty to deploy: in this case, **icr.io/appcafe/websphere-liberty:26.0.0.6-kernel-java8-openj9-ubi**
 
         sed -i 's/websphere-liberty:25.0.0.6-kernel-java8-openj9-ubi/websphere-liberty:26.0.0.6-kernel-java8-openj9-ubi/g' /home/itzuser/Student/migrationPlan/Containerfile
 
