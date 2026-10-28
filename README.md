@@ -170,7 +170,7 @@ The Application Modernization Accelerator is installed locally on the **Workstat
  
     d. The **Application Modernization Accelerator** application is started, **`right-click`** the application URL link and select **`Open Link`** to launch it in a web browser window.
  
-     The URL is displayed in the output from the AMA command: [**https://localhost:3000**]
+     The URL is displayed in the output from the AMA command: **https://desktop-2xxx:3000**
  
      ![](./images/media/image13.png)
  
@@ -224,7 +224,7 @@ A `workspace` is a designated area that will house the migration recommendations
 
 
     
-    c.  Navigate to **Home \> itzuser \> Student \> AMA**
+    c.  Navigate to **Home \> itzuser \> Student \> ama**
 
     d.  Select **`Dmgr.zip`** file. Then click the **`Open`** button
 
@@ -239,7 +239,7 @@ A `workspace` is a designated area that will house the migration recommendations
     ![Upload data collection](./images/media/image18a.png)
 
     
-    The "**Evaluation**" workspace displays the “Visualization** of all applications in that workspace. The application you will focus on in the lab is the PlantsByWebSphere application which consists of an application server and a database.
+    The "**Evaluation**" workspace displays the “Visualization** of all applications in that workspace. The application you will focus on in the lab is the PlantsByWebSphere application which consists of a Java Enterprise application and a database.
 
     ![AMA_Visualization_View](./images/media/image18c.png)
 
@@ -249,7 +249,7 @@ A `workspace` is a designated area that will house the migration recommendations
     ![AMA_Assessment_View](./images/media/image19.png)
 
 
-    There is a single application called **plantsbywebsphereee6.ear**. 
+    You can see five applications with their complexity, migration issues, efforts and more. You will focus one the one called **plantsbywebsphereee6.ear**.
     
     
 
