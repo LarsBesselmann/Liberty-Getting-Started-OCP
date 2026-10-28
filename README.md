@@ -2,7 +2,7 @@
 
 ![banner](./images/media/image1.jpeg) 
 
-**Last updated:** September 2026
+**Last updated:** October 2026
 
 **Status: ** DRAFT - work in progress
 
@@ -72,9 +72,9 @@ If you are doing this lab as part of an instructor led workshop (virtual or face
 
 Otherwise, you will need to reserve an environment for the lab. You can obtain one here. Follow the on-screen instructions for the “**Reserve now**” option.
 
-[https://techzone.ibm.com/my/reservations/create/65eb652a747d7a00108fb5db](https://techzone.ibm.com/my/reservations/create/65eb652a747d7a00108fb5db)
+[https://techzone.ibm.com/collection/liberty-getting-started-labs-demos/environments?platform=6ae1b4145090306a5c3b1a83](https://techzone.ibm.com/collection/liberty-getting-started-labs-demos/environments?platform=6ae1b4145090306a5c3b1a83)
 
-The lab environment contains six (6) Linux VMs.
+The lab environment contains of a Desktop machine and several other VMs spinning up an OpenShift cluster five Linux VMs and an OpenShift cluster.
 
 
 
@@ -98,7 +98,6 @@ To simplify the lab and to allow you to focus on the migration plan, certain sof
 
     sudo mv /bin/docker /bin/docker.sav
 
-
 **Install AMA**
 
     /tmp/post_deploy_repo/scripts/AMA_510_install_new.sh
@@ -111,37 +110,36 @@ To simplify the lab and to allow you to focus on the migration plan, certain sof
     rm -rf ~/binary-scanner
     rm -rf ~/IBM
     rm -rf ~/transformation-advisor-local-3.8.1
+    sudo rm -rf /home/techzone
 
-**Create Student directory**
+1. Create Student directory
 
-    mkdir -p ~/Student/temp
+        mkdir -p ~/Student/temp
 
-** Clone the project repository
+2. Clone the project repository
 
-    git clone https://github.com/LarsBesselmann/LibertyGettingStarted-2026-OCP-Lab ~/Student/temp
-    mv ~/Student/temp/lab_sources/* ~/Student
-    rm -rf ~/Student/temp
-    ls -lrt ~/Student
+       git clone https://github.com/LarsBesselmann/LibertyGettingStarted-2026-OCP-Lab ~/Student/temp
+       mv ~/Student/temp/lab_sources/* ~/Student
+       rm -rf ~/Student/temp
+       ls -lrt ~/Student
     
 
-**Create podman container with the PlantsByWebSphere database pbwdb**
+3. Create podman container with the PlantsByWebSphere database pbwdb
 
-    cd ~/Student
+       cd ~/Student
 
-    ## Needs sudo for DB2 (rootless not allowed)
+       sudo podman build -t plantsdb-db2 ./plantsdb-db2
 
-    sudo podman build -t plantsdb-db2 ./plantsdb-db2
+       sudo podman run --privileged=true -d \
+        --name plantsdb-db2 \
+        -p 50000:50000 \
+        -e LICENSE=accept \
+        -e DB2INST1_PASSWORD=db2password \
+        -e DBNAME=PLANTSDB \
+        -v plantsdb-data:/database \
+        plantsdb-db2
 
-    sudo podman run --privileged=true -d \
-    --name plantsdb-db2 \
-    -p 50000:50000 \
-    -e LICENSE=accept \
-    -e DB2INST1_PASSWORD=db2password \
-    -e DBNAME=PLANTSDB \
-    -v plantsdb-data:/database \
-    plantsdb-db2
-
-    netstat -an | grep 50000
+        netstat -an | grep 50000
 
 
 # Part 1: Application Assesment    
