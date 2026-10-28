@@ -256,7 +256,7 @@ A `workspace` is a designated area that will house the migration recommendations
 
 ## 1.4 Analyze the plantsbywebsphereee6 application
 
- Application Modernization Accelerator provides detailed information about each application that has been analyzed. This application has a complexity of **`Simple`**.
+ Application Modernization Accelerator provides detailed information about each application that has been analyzed. This application **plantsbywebsphereee6.ear** has a complexity of **`Simple`**.
  
  **Simple** means:
  
@@ -292,9 +292,9 @@ A `workspace` is a designated area that will house the migration recommendations
 
     ![](./images/media/image22.png)
 
-2. At the bottom of the screen, there is a `Application Dependencies` section. 
+2. At the bottom of the screen, there is an `Application dependencies` section. 
     
-    This shows all the files, in addition to the application, that are required for a deployment. **Plantsbywebspheeee6.ear** has two dependencies.
+    This shows all the files, in addition to the application, that are required for a deployment. **Plantsbywebspheeee6.ear** has four dependencies.
 
     a. Expand the section it to see the details
 
