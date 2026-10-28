@@ -119,7 +119,7 @@ To simplify the lab and to allow you to focus on the migration plan, certain sof
 
 ** Clone the project repository
 
-    git clone https://github.com/LarsBesselmann/Liberty-Getting-Started-OCP ~/Student/temp
+    git clone https://github.com/LarsBesselmann/LibertyGettingStarted-2026-OCP-Lab ~/Student/temp
     mv ~/Student/temp/lab_sources/* ~/Student
     rm -rf ~/Student/temp
     ls -lrt ~/Student
