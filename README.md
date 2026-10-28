@@ -96,7 +96,6 @@ To simplify the lab and to allow you to focus on the migration plan, certain sof
 
 **Disable docker**
 
-    unalias docker
     sudo mv /bin/docker /bin/docker.sav
 
 
