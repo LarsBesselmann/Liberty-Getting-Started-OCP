@@ -102,7 +102,7 @@ To simplify the lab and to allow you to focus on the migration plan, certain sof
 
 **Install AMA**
 
-    /tmp/post_deploy_repo/scripts/AMA_510_install.sh
+    /tmp/post_deploy_repo/scripts/AMA_510_install_new.sh
     sh ~/software/AMA/AMA_apply_Full_Key.sh 
 
 **Move/remove files to backup**
