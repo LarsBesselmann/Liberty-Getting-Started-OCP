@@ -386,7 +386,7 @@ Then, you will review the migration plan to see what files you need to add, and 
 
 In this section, you will review the migration plan to see what files need to be added to the WebSphere Liberty configuration to run the application. 
 
-1.  Let’s make note of the 3 `placeholder files` that are placed in the `migration plan`.
+1.  Let’s make note of the 5 `placeholder files` that are placed in the `migration plan`.
 
     The placeholder files are convenient references to let you know which files you will need to copy to the **Liberty server**.
  
@@ -594,7 +594,7 @@ The **server.xml** file defines a set of **`features`** that the application req
 
     ![PBW Error not init](./images/media/pbw_dB_not_initialized.png)
     
-    Therefore before we can fully test the application, we need to initialize the database.
+    Therefore, before we can fully test the application, we need to initialize the database.
 
     a. Click on Help to get the help panel
 
@@ -721,7 +721,6 @@ In this section, you will build and run the PlantsByWebSphere application in a l
     -  `-d` start the container in 'detached' mode so you get your command prompt back
     -  `--rm` remove the container when it is stopped
     -  `-p` expose the HTTP port
-    - `--network` connect the container to the same podman network as the DB2 container
     -  `--name` is the name we are giving the container 
 
 
@@ -838,15 +837,15 @@ For the lab, we have provided the updated file structure for you. You just need 
 
 1. Move the configMap to the Kustomize `overlays` folder
 
-        cd ~/Student/migrationPlan/deploy/kustomize
-        mv base/plantsbywebsphereee6-configmap.yaml overlays/dev/plantsbywebsphereee6-configmap.yaml
+       cd ~/Student/migrationPlan/deploy/kustomize
+       mv base/plantsbywebsphereee6-configmap.yaml overlays/dev/plantsbywebsphereee6-configmap.yaml
 
 2. Remove the reference to plantsbywebsphereee6-configmap.yaml from base/kustomization.yaml
 
     a. Edit the file and remove the reference
 
-        cd ~/Student/migrationPlan/deploy/kustomize
-        gedit base/kustomization.yaml
+       cd ~/Student/migrationPlan/deploy/kustomize
+       gedit base/kustomization.yaml
 
     > ![](./images/media/configmap_unchanged.png)
 
