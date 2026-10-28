@@ -335,9 +335,9 @@ Then, you will review the migration plan to see what files you need to add, and 
 
 1.  From a **`Terminal`** window, download and install the Liberty archive.
 
-        wget https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/26.0.0.6/wlp-javaee7-26.0.0.6.zip -P ~/Student
+        wget https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/26.0.0.6/wlp-webProfile7-26.0.0.6.zip -P ~/Student
         cd ~/Student
-        unzip wlp-javaee7-26.0.0.6.zip
+        unzip wlp-webProfile7-26.0.0.6.zip
 
 
     
