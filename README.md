@@ -914,7 +914,14 @@ You will make the following updates to the configuration YAML files in the migra
     a. Adjust the value of applicationImage from `IMAGE_REFERENCE` to 
     `default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0`
 
-        sed -i 's/applicationImage: IMAGE_REFERENCE/applicationImage: default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com\/apps-pbw\/pbw-app:1.0/g' base/application-cr.yaml
+        imageReference="default-route-openshift-image-registry.${CLUSTER_BASE_URL}/apps-pbw\/pbw-app:1.0"
+        echo $imageReference
+
+        sed -i "s|IMAGE_REFERENCE|${imageReference}|g" base/application-cr.yaml
+
+
+
+        #sed -i 's/applicationImage: IMAGE_REFERENCE/applicationImage: default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com\/apps-pbw\/pbw-app:1.0/g' base/application-cr.yaml
 
     b. Accept the license by replacing `accept: false` with `accept: true`
 
@@ -1107,7 +1114,12 @@ To deploy the PlantsByWebSphere application to OpenShift, you must perform the f
 
 4. Tag the container image using the following podman command
 
-        podman tag apps/pbw default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0
+        imageReference="default-route-openshift-image-registry.${CLUSTER_BASE_URL}/apps-pbw\/pbw-app:1.0"
+        echo $imageReference
+
+        podman tag apps/pbw ${imageReference}
+
+        #podman tag apps/pbw default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0
 
 5. Verify the image was tagged
 
@@ -1118,7 +1130,12 @@ To deploy the PlantsByWebSphere application to OpenShift, you must perform the f
 
 6. Push the container image to OpenShift internal registry 
 
-       podman push default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0         
+       imageReference="default-route-openshift-image-registry.${CLUSTER_BASE_URL}/apps-pbw\/pbw-app:1.0"
+        echo $imageReference
+
+       podman push ${imageReference}
+
+       #podman push default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0         
 
 
 In previous steps, you configured the sensitive data that is needed, accepted the license, pointed to the image that is needed to pull,  and logged into OpenShift. Now, with a single command, you can deploy to OpenShift and configure the image. 
