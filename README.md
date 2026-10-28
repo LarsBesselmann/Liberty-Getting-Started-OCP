@@ -911,12 +911,12 @@ You will make the following updates to the configuration YAML files in the migra
     The `application-cr.yaml` is the WebSphere Liberty custom resource used to deploy the PlantsByWebSphere application.
   
 
-    a. Adjust the applicationImage IMAGE_REFERENCE" to 
-    **default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0**
+    a. Adjust the value of applicationImage from `IMAGE_REFERENCE` to 
+    `default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0`
 
         sed -i 's/applicationImage: IMAGE_REFERENCE/applicationImage: default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com\/apps-pbw\/pbw-app:1.0/g' base/application-cr.yaml
 
-    b. Accept the license by replacing "accept: false" with "accept: true"
+    b. Accept the license by replacing `accept: false` with `accept: true`
 
         sed -i 's/accept: false/accept: true/g' base/application-cr.yaml
 
@@ -965,28 +965,28 @@ You will make the following updates to the configuration YAML files in the migra
 
 2.	Update the **plantsbywebsphereee6-secret.yaml** file, which contains the sensitive-data for the application. 
 
-    Adjust the line
+    Adjust the line for the db2 user
 
-    - from: Dmgr01Node_DB2INST1_user: <REPLACE_WITH_BASE64_ENCODED_DATA>
-    - to: Dmgr01Node_DB2INST1_user: ZGIyaW5zdDE=
+    - from: `Dmgr01Node_DB2INST1_user: <REPLACE_WITH_BASE64_ENCODED_DATA>`
+    - to: `Dmgr01Node_DB2INST1_user: ZGIyaW5zdDE=`
 
     Use the following command to do so:
 
         sed -i 's/Dmgr01Node_DB2INST1_user: <REPLACE_WITH_BASE64_ENCODED_DATA>/Dmgr01Node_DB2INST1_user: ZGIyaW5zdDE=/g' overlays/dev/plantsbywebsphereee6-secret.yaml
 
-    Adjust the line
+    Adjust the line for the db2 password
 
-    - from: Dmgr01Node_DB2INST1_password: <REPLACE_WITH_BASE64_ENCODED_DATA>
-    - to: Dmgr01Node_DB2INST1_password: ZGIycGFzc3dvcmQ=
+    - from: `Dmgr01Node_DB2INST1_password: <REPLACE_WITH_BASE64_ENCODED_DATA>`
+    - to: `Dmgr01Node_DB2INST1_password: ZGIycGFzc3dvcmQ=`
 
     Use the following command to do so:
 
         sed -i 's/Dmgr01Node_DB2INST1_password: <REPLACE_WITH_BASE64_ENCODED_DATA>/Dmgr01Node_DB2INST1_password: ZGIycGFzc3dvcmQ=/g' overlays/dev/plantsbywebsphereee6-secret.yaml
 
-    Adjust the line
+    Adjust the line for the primary admin
 
-    - from: WIMUserRegistry_1_Default01Cell_userRegistry_primaryAdminId: <REPLACE_WITH_BASE64_ENCODED_DATA>
-    - to: WIMUserRegistry_1_Default01Cell_userRegistry_primaryAdminId: d2FzYWRtaW4=>
+    - from: `WIMUserRegistry_1_Default01Cell_userRegistry_primaryAdminId: <REPLACE_WITH_BASE64_ENCODED_DATA>`
+    - to: `WIMUserRegistry_1_Default01Cell_userRegistry_primaryAdminId: d2FzYWRtaW4=`
 
     Use the following command to do so:
 
