@@ -98,6 +98,16 @@ To simplify the lab and to allow you to focus on the migration plan, certain sof
 
     sudo mv /bin/docker /bin/docker.sav
 
+**Set OCP variables**
+
+    cat /usr/local/share/applications/OpenShiftConsole.desktop | grep http > OCP_URL.txt
+    OCP_CONSOLE_URL=$(sed 's/Exec=\/usr\/bin\/xdg-open //g' OCP_URL.txt)
+    sudo echo "export OCP_CONSOLE_URL=$OCP_CONSOLE_URL" >> ~/.bashrc
+    OCP_BASE_URL="${OCP_CONSOLE_URL:34}"
+    sudo echo "export OCP_BASE_URL=$OCP_BASE_URL" >> ~/.bashrc
+
+
+
 **Install AMA**
 
     /tmp/post_deploy_repo/scripts/AMA_510_install_new.sh
@@ -911,10 +921,10 @@ You will make the following updates to the configuration YAML files in the migra
     The `application-cr.yaml` is the WebSphere Liberty custom resource used to deploy the PlantsByWebSphere application.
   
 
-    a. Adjust the value of applicationImage from `IMAGE_REFERENCE` to 
+    a. Adjust the value of applicationImage from `IMAGE_REFERENCE` to something like
     `default-route-openshift-image-registry.apps.itz-e1vpbd.infra01-lb.dal14.techzone.ibm.com/apps-pbw/pbw-app:1.0`
 
-        imageReference="default-route-openshift-image-registry.${CLUSTER_BASE_URL}/apps-pbw\/pbw-app:1.0"
+        imageReference="default-route-openshift-image-registry.${OCP_BASE_URL}/apps-pbw\/pbw-app:1.0"
         echo $imageReference
 
         sed -i "s|IMAGE_REFERENCE|${imageReference}|g" base/application-cr.yaml
@@ -1114,7 +1124,7 @@ To deploy the PlantsByWebSphere application to OpenShift, you must perform the f
 
 4. Tag the container image using the following podman command
 
-        imageReference="default-route-openshift-image-registry.${CLUSTER_BASE_URL}/apps-pbw\/pbw-app:1.0"
+        imageReference="default-route-openshift-image-registry.${OCP_BASE_URL}/apps-pbw\/pbw-app:1.0"
         echo $imageReference
 
         podman tag apps/pbw ${imageReference}
@@ -1130,7 +1140,7 @@ To deploy the PlantsByWebSphere application to OpenShift, you must perform the f
 
 6. Push the container image to OpenShift internal registry 
 
-       imageReference="default-route-openshift-image-registry.${CLUSTER_BASE_URL}/apps-pbw\/pbw-app:1.0"
+       imageReference="default-route-openshift-image-registry.${OCP_BASE_URL}/apps-pbw\/pbw-app:1.0"
         echo $imageReference
 
        podman push ${imageReference}
@@ -1359,189 +1369,30 @@ You may continue your learning journey with the optional sections of the lab.
 
 ___
 
+# Troubleshooting:
 
-# Optional Sections: 
+## OpenShift related issues
 
-<details>
- <summary><b><font color="dodgerblue">Click to expand:</font></b> Section 5: (Optional) GitOps and configuration management
- </summary>
+1. oc login fails
 
-<br/>
+If `oc login -w` fails with an error like
 
-## 5 GitOps and configuration management
+    error: dial tcp: lookup xxx no such host - verify you have provided the correct host and port and that the server is currently running.
 
-At this point we have two distinct elements for deployment: the **application image** and the **configuration for that image for each potential environment**. In the GitOps model, these two elements are stored in separate Git repositories. 
+this indicates that the OCP endpoint has not been set in the configuration. Try the following command to fix it:
 
-You can further distribute the configuration into different repositories for each environment. This approach allows you to treat configuration as if it were code and to apply standard code development techniques such as Pull Requests, code review and maintain a full audit history. This approach delivers excellent controls and oversights for configuration changes for your OpenShift clusters, especially as you promote changes through your environments.
+    echo $OCP_CONSOLE_URL
 
-![A black background with white arrows and dots Description automatically generated](./images/media/image105.png)
+If the command returns no URL, you need to set the URL via these commands:
 
-We will not cover all of GitOps it in detail in this lab - however, there are two relevant areas that are worth mentioning briefly.
+    cat /usr/local/share/applications/OpenShiftConsole.desktop | grep http > OCP_URL.txt
+    OCP_CONSOLE_URL=$(sed 's/Exec=\/usr\/bin\/xdg-open //g' OCP_URL.txt)
+    sudo echo "export OCP_CONSOLE_URL=$OCP_CONSOLE_URL" >> ~/.bashrc
+    OCP_BASE_URL="${OCP_CONSOLE_URL:34}"
+    sudo echo "export OCP_BASE_URL=$OCP_BASE_URL" >> ~/.bashrc
 
-**Configuration Drift**
+Now you can log in via the command:
 
-With the GitOps approach, there is the risk that the deployed configuration for the OpenShift cluster does not match what is in the Git repository. Someone could have updated the OpenShift cluster directly, for example. There are a number of tools to manage this configuration drift, with ArgoCD being a common tool to address this issue. It can be configured to sync manually or automatically, so that any changes made directly on the cluster are reverted to what is in the Git repository. 
-
-The OpenShift GitOps Operator can be used to install ArgoCD into your OpenShift cluster. 
-
-**Securing Secrets**
-
-Even with controls and restricted access to Git repositories, it is not considered good practice to store the sensitive data in plain text (aka the values entered into the secrets files). 
-There are generally two approaches you can take to tackle this, encrypt the values or use a reference:
-
-  - **Encrypt the values**: In this approach, the value in the secret file is encrypted when it is committed to the Git repo. During deployment to OpenShift there is an extra step where the secret values are decrypted. `SealedSecrets` is one implementation of such an approach.
-
-  - **Use a reference**: In this case, the secrets and their values are stored in a secret manager. During deployment, a reference is provided to the secret manager which will then mount the secret to the deployed container. `HashiCorp Vault` is a common implementation of this approach.
-
-In both cases, there is additional work to be done above what has been covered in this lab. However, the kustomize files provided in the migration plan gives you a good starting point to identify the secrets and provide a standard output that can be transformed to suit your selected approach.
-
-</details>
-
-
-<details>
- <summary><b><font color="dodgerblue">Click to expand:</font></b> Section 6: (Optional) Exploring the PlantsByWebSphere application in the proof_of_concept workspace
- </summary>
-
-<br/>
-
-## 6 Exploring the PlantsByWebSphere application in the proof_of_concept workspace
-
-IBM Cloud Application Modernization Accelerator (TA) analyzes application and configuration data collected from Java application server environments. TA delivers great insights that help organizations plan and implement a modernization journey to WebSphere Liberty and Kubernetes base container platform for existing Java applications.
- 
-TA provides recommendations for modernization which includes and considers application complexity, dependencies, potential issues, and estimated development effort.
- 
-![screenshot](./images/media/image106.png)
-
-1. In a browser window, return to Application Modernization Accelerator using the following URL: 
-
-        http://localhost:3000
-
-2. Open the `proof_of_concept` workspace, if it is not already open
-
-    ![](./images/media/ta-proof-of-concept.png)
-
-
-3.  Scroll down to the `Java applications` section and note the high-level summary for the ‘**plantsbywebsphereee6.ear**’application assessment.
-
-  - Complexity
-
-  - Issues
-
-  - Required code changes
-
-  - Application cost (in days for development)
-
-    ![](./images/media/image107.png)
-
-This workspace has only a single application name `plantsbywebsphereee6.ear`. It is summarized as `simple` to  modernize to WebSphere Liberty.  
-
- ***Complexity values and their meanings:***
- 
-**`Simple`**: The application is ready for deployment, no access to the source code is required. 
-
-  - Simple complexity value typically represents about 20% of applications.
- 
- **`Moderate`**: Code changes are required before deployment; however, these code changes are well known, and specific help is provided for each issue to assist in resolving it. 
- 
-   - Moderate complexity value typically represents about 80% of applications.
- 
- **`Complex`**: The application uses a technology that does not have a direct equivalent in the new runtime and a new approach will need to be adopted. In our experience, only about 1 in 6 customers have these kinds of applications. 
- 
-   - Complex complexity value typically represents less than 1% of applications.
-
-4. Click on **plantsByWebSphereee6.ear** which will expand the analysis
-
-    ![screenshot](./images/media/image108.png)
-
-    a. Scroll down, noting the groups or categories of analysis available
+    oc login -w --server=$OCP_CONSOLE_URL:6443
     
-    - **Complexity rules**
-    
-    - **Required code changes**
-    
-    - **Issue details**
-
-      - Critical
-
-      - Warning
-
-      - Informational
-    
-    - **Additional reports**
-
-      - Technology report
-
-      - Inventory report
-
-      - Analysis reports
-
-
-5.  View the **`Analysis Report`** for more detailed application information
-
-    **Analysis Report**
-
-    The **Detailed Migration Analysis Report** does a deep dive on the preferred migration target to help you understand any migration issues, like deprecated or removed APIs, Java SE version differences, and Java EE behavioral differences.
-
-    a.  Click on the **`Analysis report`** link. 
-
-    ![screenshot](./images/media/image109.png)
-
-    b. The **Analysis report** will open in a new browser tab
-
-    ![screenshot](./images/media/image110.png)
- 
-
-    c.  Note the **target**
-
-    - Because the **source** was traditional WebSphere v8.5.5, which is Java EE 6, the target is also EE6.
-
-    - Because the source was running Jave SE 8, the target is also set to Java SE 8.
-
-    By default, Application Modernization Accelerator recommends the first step of modernization to Liberty that requires the minimal amount of change and effort.
- 
-    You may use the binary scanner with the `--ta` option if you want to assess the modernization effort to newer versions Java, Jave EE, or Jakarta EE. Running the binary scanner with the `-ta` option produces an archive file that can be loaded into Application Modernization Accelerator for analysis.
-
-    d.  Click on the **`Information`** label, to review the details of this item.
-
-    ![screenshot](./images/media/image112.png)
- 
-    The **Information** rules provide migration related considerations. Be aware of these rules during testing. Many of these rules relate to connectivity to other resources that need to be considered during migration.
-
-    e.  You may review the Information rules for PlantsByWebSphere migration.
-
-    ![screenshot](./images/media/image113.png)
-
-
-6.  Return to the **Cloud Application Modernization Accelerator** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Inventory Report`**, which will open in a new browser tab.
-
-    ![screenshot](./images/media/image114.png)
-
-    a.  Scroll down and review the Inventory Report, which is especially useful in larger applications.
-
-    The **Inventory report** provides a high-level inventory of the content and structure of each application, plus information about potential deployment problems and performance considerations.
- 
-    ![](./images/media/image115.png)
-
-    b.  Scroll down to the bottom of the **Inventory report** and locate the **`Contained Archives`** section.
-
-    The inventory report provides valuable insights into utility jars that are contained in the application. It also provides the ‘package’ name of the utility jar. This is extremely valuable to help determine what 3<sup>rd</sup> party utilities are used by the application.
-
-    c.  Notice the PlantsByWebSphere application contains utility jar named **‘pbw-lib’jar**’. The archive package is “ibm.com.websphere’, indicating it is NOT a 3<sup>rd</sup> party utility jar.
-
-    ![screenshot](./images/media/image116.png)
-
-    d.  Return to the **Cloud Application Modernization Accelerator** browser tab that shows the **plantsbywebsphereee6.ear details** page. Then click on **`Technology report`**, which will open in a new browser tab.
-
-    The **Technology report** provides details on which editions of Liberty support the technologies used by the applications.
- 
-    ![screenshot](./images/media/image117.png)
-
-    a.  Scroll down the Technology Report, which can quickly help assess which Java EE API technologies that the PlantsByWebSphere application uses, and which editions of Liberty the APIs are available.
-
-    ![screenshot](./images/media/image118.png)
-
-    b. As you see from the report above, the APIs used in the PlantsByWebSphere application are available in ALL editions of Liberty.
-
-</details>
-
 
